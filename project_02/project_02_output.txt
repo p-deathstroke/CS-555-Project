@@ -1,0 +1,730 @@
+--> 0 NOTE PREET DABHI 
+<-- 0 | NOTE | Y | PREET DABHI 
+--> 0 HEAD
+<-- 0 | HEAD | Y |  
+--> 1 SOUR Family Echo
+<-- 1 | SOUR | N | Family Echo 
+--> 2 WWW http://www.familyecho.com/
+<-- 2 | WWW | N | http://www.familyecho.com/ 
+--> 1 FILE My Family
+<-- 1 | FILE | N | My Family 
+--> 1 DATE 20 SEP 2021
+<-- 1 | DATE | N | 20 SEP 2021 
+--> 1 DEST ANSTFILE
+<-- 1 | DEST | N | ANSTFILE 
+--> 1 GEDC
+<-- 1 | GEDC | N |  
+--> 2 VERS 5.5.1
+<-- 2 | VERS | N | 5.5.1 
+--> 2 FORM LINEAGE-LINKED
+<-- 2 | FORM | N | LINEAGE-LINKED 
+--> 1 SUBM @I1@
+<-- 1 | SUBM | N | @I1@ 
+--> 2 NAME Preet
+<-- 2 | NAME | N | Preet 
+--> 1 SUBN
+<-- 1 | SUBN | N |  
+--> 1 CHAR UTF-8
+<-- 1 | CHAR | N | UTF-8 
+--> 0 @I1@ INDI
+<-- 0 | INDI | Y | @I1@ |  
+--> 1 NAME Bruce /Wayne/
+<-- 1 | NAME | Y | Bruce /Wayne/ 
+--> 2 GIVN Bruce
+<-- 2 | GIVN | N | Bruce 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 17 APR 1978
+<-- 2 | DATE | Y | 17 APR 1978 
+--> 2 PLAC Gotham
+<-- 2 | PLAC | N | Gotham 
+--> 1 OCCU Batman
+<-- 1 | OCCU | N | Batman 
+--> 2 PLAC Wayne Tech
+<-- 2 | PLAC | N | Wayne Tech 
+--> 1 NOTE Interests: protecting gotham
+<-- 1 | NOTE | N | Interests: protecting gotham 
+--> 1 FAMS @F1@
+<-- 1 | FAMS | Y | @F1@ 
+--> 1 FAMS @F2@
+<-- 1 | FAMS | Y | @F2@ 
+--> 1 FAMS @F8@
+<-- 1 | FAMS | Y | @F8@ 
+--> 1 FAMC @F3@
+<-- 1 | FAMC | Y | @F3@ 
+--> 0 @I2@ INDI
+<-- 0 | INDI | Y | @I2@ |  
+--> 1 NAME Thomas /Wayne/
+<-- 1 | NAME | Y | Thomas /Wayne/ 
+--> 2 GIVN Thomas
+<-- 2 | GIVN | N | Thomas 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 2 MAR 1942
+<-- 2 | DATE | Y | 2 MAR 1942 
+--> 1 DEAT Y
+<-- 1 | DEAT | Y | Y 
+--> 2 DATE 26 JUL 1992
+<-- 2 | DATE | Y | 26 JUL 1992 
+--> 1 FAMS @F3@
+<-- 1 | FAMS | Y | @F3@ 
+--> 0 @I3@ INDI
+<-- 0 | INDI | Y | @I3@ |  
+--> 1 NAME Martha /Wayne/
+<-- 1 | NAME | Y | Martha /Wayne/ 
+--> 2 GIVN Martha
+<-- 2 | GIVN | N | Martha 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 4 APR 1953
+<-- 2 | DATE | Y | 4 APR 1953 
+--> 1 DEAT Y
+<-- 1 | DEAT | Y | Y 
+--> 2 DATE 26 JUL 1992
+<-- 2 | DATE | Y | 26 JUL 1992 
+--> 1 FAMS @F3@
+<-- 1 | FAMS | Y | @F3@ 
+--> 0 @I4@ INDI
+<-- 0 | INDI | Y | @I4@ |  
+--> 1 NAME Talia /Al Ghul/
+<-- 1 | NAME | Y | Talia /Al Ghul/ 
+--> 2 GIVN Talia
+<-- 2 | GIVN | N | Talia 
+--> 2 SURN Al Ghul
+<-- 2 | SURN | N | Al Ghul 
+--> 2 _MARNM Al Ghul
+<-- 2 | _MARNM | N | Al Ghul 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 10 JUN 1984
+<-- 2 | DATE | Y | 10 JUN 1984 
+--> 1 FAMS @F2@
+<-- 1 | FAMS | Y | @F2@ 
+--> 1 FAMC @F4@
+<-- 1 | FAMC | Y | @F4@ 
+--> 0 @I5@ INDI
+<-- 0 | INDI | Y | @I5@ |  
+--> 1 NAME Damian /Wayne/
+<-- 1 | NAME | Y | Damian /Wayne/ 
+--> 2 GIVN Damian
+<-- 2 | GIVN | N | Damian 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 7 AUG 2006
+<-- 2 | DATE | Y | 7 AUG 2006 
+--> 1 FAMS @F5@
+<-- 1 | FAMS | Y | @F5@ 
+--> 1 FAMC @F2@
+<-- 1 | FAMC | Y | @F2@ 
+--> 0 @I6@ INDI
+<-- 0 | INDI | Y | @I6@ |  
+--> 1 NAME DIck /Grayson/
+<-- 1 | NAME | Y | DIck /Grayson/ 
+--> 2 GIVN DIck
+<-- 2 | GIVN | N | DIck 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 29 MAY 2000
+<-- 2 | DATE | Y | 29 MAY 2000 
+--> 1 FAMS @F6@
+<-- 1 | FAMS | Y | @F6@ 
+--> 1 FAMS @F7@
+<-- 1 | FAMS | Y | @F7@ 
+--> 1 FAMC @F8@
+<-- 1 | FAMC | Y | @F8@ 
+--> 2 PEDI adopted
+<-- 2 | PEDI | N | adopted 
+--> 1 FAMC @F9@
+<-- 1 | FAMC | Y | @F9@ 
+--> 2 PEDI birth
+<-- 2 | PEDI | N | birth 
+--> 0 @I7@ INDI
+<-- 0 | INDI | Y | @I7@ |  
+--> 1 NAME Barbra /Gordon/
+<-- 1 | NAME | Y | Barbra /Gordon/ 
+--> 2 GIVN Barbra
+<-- 2 | GIVN | N | Barbra 
+--> 2 SURN Gordon
+<-- 2 | SURN | N | Gordon 
+--> 2 _MARNM Gordon
+<-- 2 | _MARNM | N | Gordon 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 4 JUL 1985
+<-- 2 | DATE | Y | 4 JUL 1985 
+--> 1 FAMS @F1@
+<-- 1 | FAMS | Y | @F1@ 
+--> 1 FAMC @F10@
+<-- 1 | FAMC | Y | @F10@ 
+--> 0 @I8@ INDI
+<-- 0 | INDI | Y | @I8@ |  
+--> 1 NAME Stephanie /Wayne/
+<-- 1 | NAME | Y | Stephanie /Wayne/ 
+--> 2 GIVN Stephanie
+<-- 2 | GIVN | N | Stephanie 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 22 SEP 2008
+<-- 2 | DATE | Y | 22 SEP 2008 
+--> 1 FAMS @F11@
+<-- 1 | FAMS | Y | @F11@ 
+--> 1 FAMS @F12@
+<-- 1 | FAMS | Y | @F12@ 
+--> 1 FAMC @F1@
+<-- 1 | FAMC | Y | @F1@ 
+--> 0 @I9@ INDI
+<-- 0 | INDI | Y | @I9@ |  
+--> 1 NAME Ra's /Al Ghul/
+<-- 1 | NAME | Y | Ra's /Al Ghul/ 
+--> 2 GIVN Ra's
+<-- 2 | GIVN | N | Ra's 
+--> 2 SURN Al Ghul
+<-- 2 | SURN | N | Al Ghul 
+--> 2 _MARNM Al Ghul
+<-- 2 | _MARNM | N | Al Ghul 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 FAMS @F4@
+<-- 1 | FAMS | Y | @F4@ 
+--> 0 @I10@ INDI
+<-- 0 | INDI | Y | @I10@ |  
+--> 1 NAME Melisande /Al Ghul/
+<-- 1 | NAME | Y | Melisande /Al Ghul/ 
+--> 2 GIVN Melisande
+<-- 2 | GIVN | N | Melisande 
+--> 2 SURN Al Ghul
+<-- 2 | SURN | N | Al Ghul 
+--> 2 _MARNM Al Ghul
+<-- 2 | _MARNM | N | Al Ghul 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 FAMS @F4@
+<-- 1 | FAMS | Y | @F4@ 
+--> 0 @I11@ INDI
+<-- 0 | INDI | Y | @I11@ |  
+--> 1 NAME Ibn Al /Xu'ffash/
+<-- 1 | NAME | Y | Ibn Al /Xu'ffash/ 
+--> 2 GIVN Ibn Al
+<-- 2 | GIVN | N | Ibn Al 
+--> 2 SURN Xu'ffash
+<-- 2 | SURN | N | Xu'ffash 
+--> 2 _MARNM Xu'ffash
+<-- 2 | _MARNM | N | Xu'ffash 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 26 OCT 2007
+<-- 2 | DATE | Y | 26 OCT 2007 
+--> 1 FAMC @F2@
+<-- 1 | FAMC | Y | @F2@ 
+--> 0 @I12@ INDI
+<-- 0 | INDI | Y | @I12@ |  
+--> 1 NAME Lian /Wayne/
+<-- 1 | NAME | Y | Lian /Wayne/ 
+--> 2 GIVN Lian
+<-- 2 | GIVN | N | Lian 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 10 DEC 2008
+<-- 2 | DATE | Y | 10 DEC 2008 
+--> 1 FAMS @F5@
+<-- 1 | FAMS | Y | @F5@ 
+--> 0 @I13@ INDI
+<-- 0 | INDI | Y | @I13@ |  
+--> 1 NAME Ranya /Wayne/
+<-- 1 | NAME | Y | Ranya /Wayne/ 
+--> 2 GIVN Ranya
+<-- 2 | GIVN | N | Ranya 
+--> 2 SURN Wayne
+<-- 2 | SURN | N | Wayne 
+--> 2 _MARNM Wayne
+<-- 2 | _MARNM | N | Wayne 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 12 APR 2012
+<-- 2 | DATE | Y | 12 APR 2012 
+--> 1 FAMS @F13@
+<-- 1 | FAMS | Y | @F13@ 
+--> 1 FAMC @F5@
+<-- 1 | FAMC | Y | @F5@ 
+--> 0 @I14@ INDI
+<-- 0 | INDI | Y | @I14@ |  
+--> 1 NAME Koriander /Star/
+<-- 1 | NAME | Y | Koriander /Star/ 
+--> 2 GIVN Koriander
+<-- 2 | GIVN | N | Koriander 
+--> 2 SURN Star
+<-- 2 | SURN | N | Star 
+--> 2 _MARNM Star
+<-- 2 | _MARNM | N | Star 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 8 JUL 2002
+<-- 2 | DATE | Y | 8 JUL 2002 
+--> 1 FAMS @F7@
+<-- 1 | FAMS | Y | @F7@ 
+--> 0 @I15@ INDI
+<-- 0 | INDI | Y | @I15@ |  
+--> 1 NAME Barbra /Grayson/
+<-- 1 | NAME | Y | Barbra /Grayson/ 
+--> 2 GIVN Barbra
+<-- 2 | GIVN | N | Barbra 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 3 MAY 2001
+<-- 2 | DATE | Y | 3 MAY 2001 
+--> 1 FAMS @F6@
+<-- 1 | FAMS | Y | @F6@ 
+--> 0 @I16@ INDI
+<-- 0 | INDI | Y | @I16@ |  
+--> 1 NAME Mary /Grayson/
+<-- 1 | NAME | Y | Mary /Grayson/ 
+--> 2 GIVN Mary
+<-- 2 | GIVN | N | Mary 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 3 FEB 2021
+<-- 2 | DATE | Y | 3 FEB 2021 
+--> 1 FAMC @F6@
+<-- 1 | FAMC | Y | @F6@ 
+--> 0 @I17@ INDI
+<-- 0 | INDI | Y | @I17@ |  
+--> 1 NAME James /Grayson/
+<-- 1 | NAME | Y | James /Grayson/ 
+--> 2 GIVN James
+<-- 2 | GIVN | N | James 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 3 FEB 2021
+<-- 2 | DATE | Y | 3 FEB 2021 
+--> 1 FAMC @F6@
+<-- 1 | FAMC | Y | @F6@ 
+--> 0 @I18@ INDI
+<-- 0 | INDI | Y | @I18@ |  
+--> 1 NAME John 2 /Grayson/
+<-- 1 | NAME | Y | John 2 /Grayson/ 
+--> 2 GIVN John 2
+<-- 2 | GIVN | N | John 2 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 3 JUN 2022
+<-- 2 | DATE | Y | 3 JUN 2022 
+--> 1 FAMS @F13@
+<-- 1 | FAMS | Y | @F13@ 
+--> 1 FAMC @F6@
+<-- 1 | FAMC | Y | @F6@ 
+--> 0 @I19@ INDI
+<-- 0 | INDI | Y | @I19@ |  
+--> 1 NAME Tim /Drake/
+<-- 1 | NAME | Y | Tim /Drake/ 
+--> 2 GIVN Tim
+<-- 2 | GIVN | N | Tim 
+--> 2 SURN Drake
+<-- 2 | SURN | N | Drake 
+--> 2 _MARNM Drake
+<-- 2 | _MARNM | N | Drake 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 2 JAN 2005
+<-- 2 | DATE | Y | 2 JAN 2005 
+--> 1 FAMC @F8@
+<-- 1 | FAMC | Y | @F8@ 
+--> 2 PEDI foster
+<-- 2 | PEDI | N | foster 
+--> 1 FAMC @F14@
+<-- 1 | FAMC | Y | @F14@ 
+--> 2 PEDI birth
+<-- 2 | PEDI | N | birth 
+--> 0 @I20@ INDI
+<-- 0 | INDI | Y | @I20@ |  
+--> 1 NAME Jason /Todd/
+<-- 1 | NAME | Y | Jason /Todd/ 
+--> 2 GIVN Jason
+<-- 2 | GIVN | N | Jason 
+--> 2 SURN Todd
+<-- 2 | SURN | N | Todd 
+--> 2 _MARNM Todd
+<-- 2 | _MARNM | N | Todd 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 20 SEP 2022
+<-- 2 | DATE | Y | 20 SEP 2022 
+--> 1 FAMC @F8@
+<-- 1 | FAMC | Y | @F8@ 
+--> 2 PEDI foster
+<-- 2 | PEDI | N | foster 
+--> 0 @I21@ INDI
+<-- 0 | INDI | Y | @I21@ |  
+--> 1 NAME Mary /Grayson/
+<-- 1 | NAME | Y | Mary /Grayson/ 
+--> 2 GIVN Mary
+<-- 2 | GIVN | N | Mary 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 7 NOV 1964
+<-- 2 | DATE | Y | 7 NOV 1964 
+--> 1 DEAT Y
+<-- 1 | DEAT | Y | Y 
+--> 2 DATE 11 MAR 2006
+<-- 2 | DATE | Y | 11 MAR 2006 
+--> 1 FAMS @F9@
+<-- 1 | FAMS | Y | @F9@ 
+--> 0 @I22@ INDI
+<-- 0 | INDI | Y | @I22@ |  
+--> 1 NAME John /Grayson/
+<-- 1 | NAME | Y | John /Grayson/ 
+--> 2 GIVN John
+<-- 2 | GIVN | N | John 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 22 SEP 1960
+<-- 2 | DATE | Y | 22 SEP 1960 
+--> 1 DEAT Y
+<-- 1 | DEAT | Y | Y 
+--> 2 DATE 11 MAR 2006
+<-- 2 | DATE | Y | 11 MAR 2006 
+--> 1 FAMS @F9@
+<-- 1 | FAMS | Y | @F9@ 
+--> 0 @I23@ INDI
+<-- 0 | INDI | Y | @I23@ |  
+--> 1 NAME Janet /Drake/
+<-- 1 | NAME | Y | Janet /Drake/ 
+--> 2 GIVN Janet
+<-- 2 | GIVN | N | Janet 
+--> 2 SURN Drake
+<-- 2 | SURN | N | Drake 
+--> 2 _MARNM Drake
+<-- 2 | _MARNM | N | Drake 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 3 SEP 2010
+<-- 2 | DATE | Y | 3 SEP 2010 
+--> 1 FAMS @F14@
+<-- 1 | FAMS | Y | @F14@ 
+--> 0 @I24@ INDI
+<-- 0 | INDI | Y | @I24@ |  
+--> 1 NAME Jack /Drake/
+<-- 1 | NAME | Y | Jack /Drake/ 
+--> 2 GIVN Jack
+<-- 2 | GIVN | N | Jack 
+--> 2 SURN Drake
+<-- 2 | SURN | N | Drake 
+--> 2 _MARNM Drake
+<-- 2 | _MARNM | N | Drake 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 5 OCT 1975
+<-- 2 | DATE | Y | 5 OCT 1975 
+--> 1 DEAT Y
+<-- 1 | DEAT | Y | Y 
+--> 2 DATE 3 SEP 2010
+<-- 2 | DATE | Y | 3 SEP 2010 
+--> 1 FAMS @F14@
+<-- 1 | FAMS | Y | @F14@ 
+--> 0 @I25@ INDI
+<-- 0 | INDI | Y | @I25@ |  
+--> 1 NAME Barbra-Kean /Gordon/
+<-- 1 | NAME | Y | Barbra-Kean /Gordon/ 
+--> 2 GIVN Barbra-Kean
+<-- 2 | GIVN | N | Barbra-Kean 
+--> 2 SURN Gordon
+<-- 2 | SURN | N | Gordon 
+--> 2 _MARNM Gordon
+<-- 2 | _MARNM | N | Gordon 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 10 AUG 1954
+<-- 2 | DATE | Y | 10 AUG 1954 
+--> 1 FAMS @F10@
+<-- 1 | FAMS | Y | @F10@ 
+--> 0 @I26@ INDI
+<-- 0 | INDI | Y | @I26@ |  
+--> 1 NAME James /Gordon/
+<-- 1 | NAME | Y | James /Gordon/ 
+--> 2 GIVN James
+<-- 2 | GIVN | N | James 
+--> 2 SURN Gordon
+<-- 2 | SURN | N | Gordon 
+--> 2 _MARNM Gordon
+<-- 2 | _MARNM | N | Gordon 
+--> 1 SEX F
+<-- 1 | SEX | Y | F 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 4 JUL 1950
+<-- 2 | DATE | Y | 4 JUL 1950 
+--> 1 FAMS @F10@
+<-- 1 | FAMS | Y | @F10@ 
+--> 0 @I27@ INDI
+<-- 0 | INDI | Y | @I27@ |  
+--> 1 NAME Gar /Grayson/
+<-- 1 | NAME | Y | Gar /Grayson/ 
+--> 2 GIVN Gar
+<-- 2 | GIVN | N | Gar 
+--> 2 SURN Grayson
+<-- 2 | SURN | N | Grayson 
+--> 2 _MARNM Grayson
+<-- 2 | _MARNM | N | Grayson 
+--> 1 SEX M
+<-- 1 | SEX | Y | M 
+--> 1 BIRT
+<-- 1 | BIRT | Y |  
+--> 2 DATE 11 AUG 2032
+<-- 2 | DATE | Y | 11 AUG 2032 
+--> 1 FAMC @F13@
+<-- 1 | FAMC | Y | @F13@ 
+--> 0 @F1@ FAM
+<-- 0 | FAM | Y | @F1@ |  
+--> 1 HUSB @I1@
+<-- 1 | HUSB | Y | @I1@ 
+--> 1 WIFE @I7@
+<-- 1 | WIFE | Y | @I7@ 
+--> 1 CHIL @I8@
+<-- 1 | CHIL | Y | @I8@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F2@ FAM
+<-- 0 | FAM | Y | @F2@ |  
+--> 1 HUSB @I1@
+<-- 1 | HUSB | Y | @I1@ 
+--> 1 WIFE @I4@
+<-- 1 | WIFE | Y | @I4@ 
+--> 1 CHIL @I5@
+<-- 1 | CHIL | Y | @I5@ 
+--> 1 CHIL @I11@
+<-- 1 | CHIL | Y | @I11@ 
+--> 1 MARR
+<-- 1 | MARR | Y |  
+--> 2 DATE 6 FEB 1995
+<-- 2 | DATE | Y | 6 FEB 1995 
+--> 2 PLAC Gotham
+<-- 2 | PLAC | N | Gotham 
+--> 1 DIV
+<-- 1 | DIV | Y |  
+--> 2 DATE 7 JUN 2007
+<-- 2 | DATE | Y | 7 JUN 2007 
+--> 1 _CURRENT N
+<-- 1 | _CURRENT | N | N 
+--> 0 @F3@ FAM
+<-- 0 | FAM | Y | @F3@ |  
+--> 1 HUSB @I2@
+<-- 1 | HUSB | Y | @I2@ 
+--> 1 WIFE @I3@
+<-- 1 | WIFE | Y | @I3@ 
+--> 1 CHIL @I1@
+<-- 1 | CHIL | Y | @I1@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F4@ FAM
+<-- 0 | FAM | Y | @F4@ |  
+--> 1 HUSB @I9@
+<-- 1 | HUSB | Y | @I9@ 
+--> 1 WIFE @I10@
+<-- 1 | WIFE | Y | @I10@ 
+--> 1 CHIL @I4@
+<-- 1 | CHIL | Y | @I4@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F5@ FAM
+<-- 0 | FAM | Y | @F5@ |  
+--> 1 HUSB @I5@
+<-- 1 | HUSB | Y | @I5@ 
+--> 1 WIFE @I12@
+<-- 1 | WIFE | Y | @I12@ 
+--> 1 CHIL @I13@
+<-- 1 | CHIL | Y | @I13@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F6@ FAM
+<-- 0 | FAM | Y | @F6@ |  
+--> 1 HUSB @I6@
+<-- 1 | HUSB | Y | @I6@ 
+--> 1 WIFE @I15@
+<-- 1 | WIFE | Y | @I15@ 
+--> 1 CHIL @I16@
+<-- 1 | CHIL | Y | @I16@ 
+--> 1 CHIL @I17@
+<-- 1 | CHIL | Y | @I17@ 
+--> 1 CHIL @I18@
+<-- 1 | CHIL | Y | @I18@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F7@ FAM
+<-- 0 | FAM | Y | @F7@ |  
+--> 1 HUSB @I6@
+<-- 1 | HUSB | Y | @I6@ 
+--> 1 WIFE @I14@
+<-- 1 | WIFE | Y | @I14@ 
+--> 1 MARR
+<-- 1 | MARR | Y |  
+--> 2 DATE 23 MAY 2018
+<-- 2 | DATE | Y | 23 MAY 2018 
+--> 2 PLAC Gotham
+<-- 2 | PLAC | N | Gotham 
+--> 1 DIV
+<-- 1 | DIV | Y |  
+--> 2 DATE 9 FEB 2020
+<-- 2 | DATE | Y | 9 FEB 2020 
+--> 1 _CURRENT N
+<-- 1 | _CURRENT | N | N 
+--> 0 @F8@ FAM
+<-- 0 | FAM | Y | @F8@ |  
+--> 1 HUSB @I1@
+<-- 1 | HUSB | Y | @I1@ 
+--> 1 CHIL @I6@
+<-- 1 | CHIL | Y | @I6@ 
+--> 1 CHIL @I19@
+<-- 1 | CHIL | Y | @I19@ 
+--> 1 CHIL @I20@
+<-- 1 | CHIL | Y | @I20@ 
+--> 0 @F9@ FAM
+<-- 0 | FAM | Y | @F9@ |  
+--> 1 HUSB @I22@
+<-- 1 | HUSB | Y | @I22@ 
+--> 1 WIFE @I21@
+<-- 1 | WIFE | Y | @I21@ 
+--> 1 CHIL @I6@
+<-- 1 | CHIL | Y | @I6@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F10@ FAM
+<-- 0 | FAM | Y | @F10@ |  
+--> 1 HUSB @I25@
+<-- 1 | HUSB | Y | @I25@ 
+--> 1 WIFE @I26@
+<-- 1 | WIFE | Y | @I26@ 
+--> 1 CHIL @I7@
+<-- 1 | CHIL | Y | @I7@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F11@ FAM
+<-- 0 | FAM | Y | @F11@ |  
+--> 1 WIFE @I8@
+<-- 1 | WIFE | Y | @I8@ 
+--> 1 _CURRENT N
+<-- 1 | _CURRENT | N | N 
+--> 0 @F12@ FAM
+<-- 0 | FAM | Y | @F12@ |  
+--> 1 WIFE @I8@
+<-- 1 | WIFE | Y | @I8@ 
+--> 1 _CURRENT N
+<-- 1 | _CURRENT | N | N 
+--> 0 @F13@ FAM
+<-- 0 | FAM | Y | @F13@ |  
+--> 1 HUSB @I18@
+<-- 1 | HUSB | Y | @I18@ 
+--> 1 WIFE @I13@
+<-- 1 | WIFE | Y | @I13@ 
+--> 1 CHIL @I27@
+<-- 1 | CHIL | Y | @I27@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 @F14@ FAM
+<-- 0 | FAM | Y | @F14@ |  
+--> 1 HUSB @I24@
+<-- 1 | HUSB | Y | @I24@ 
+--> 1 WIFE @I23@
+<-- 1 | WIFE | Y | @I23@ 
+--> 1 CHIL @I19@
+<-- 1 | CHIL | Y | @I19@ 
+--> 1 _CURRENT Y
+<-- 1 | _CURRENT | N | Y 
+--> 0 TRLR
+<-- 0 | TRLR | Y |  
