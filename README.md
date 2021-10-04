@@ -23,4 +23,4 @@ This is a project for the CS 555 Agile Methods for Software Development at Steve
 |US05|Marriage before death|Vishal|
 |US05|Divorce before death|Vishal|
 |US07|Less then 150 years old|Parthik|
-|US07|Birth before marriage of parents|Parthik|
+|US08|Birth before marriage of parents|Parthik|
