@@ -1,6 +1,7 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+
 class Individual:
     DATE_FORMAT_INPUT = '%d %b %Y'
     DATE_FORMAT_OUTPUT = '%Y-%m-%d'
@@ -67,3 +68,6 @@ class Individual:
 
     def get_age(self):
         return relativedelta(datetime.now(), self.birth_date).years
+
+    def get_full_name(self):
+        return str(self.name).replace('/', '')
