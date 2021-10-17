@@ -2,6 +2,8 @@ from Family import Family
 from Individual import Individual
 from prettytable import PrettyTable
 
+from ValidateData import validate_data
+
 output = open('project_04_output.txt', 'w')
 individual_list_from_file = []
 family_list_from_file = []
@@ -109,4 +111,5 @@ def read_file(file_path):
                 continue
 
     print_tables(individual_list_from_file, family_list_from_file)
+    validate_data(individual_list_from_file, family_list_from_file)
 
