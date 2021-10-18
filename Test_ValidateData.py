@@ -46,34 +46,34 @@ class TestValidateDataMethod(unittest.TestCase):
         self.assertTrue(us02_birth_before_marriage(self.individual.birth_date, self.family.marriage_date, self.individual.get_full_name(), self.individual.id, self.family.id))
     
     def  test_us05_marriage_before_death(self):
-         self.assertTrue(us05_marriage_before_death(self.individual.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertTrue(us05_marriage_before_death(self.family.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-         self.individual.set_marriage_date("05 Jan 1999")
+         self.family.set_marriage_date("05 Jan 1999")
          self.individual.set_death_date("21 Mar 1860")
-         self.assertFalse(us05_marriage_before_death(self.individual.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertFalse(us05_marriage_before_death(self.family.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-         self.individual.set_marriage_date("05 Jan 1992")
+         self.family.set_marriage_date("05 Jan 1992")
          self.individual.set_death_date("21 Mar 2060")
-         self.assertTrue(us05_marriage_before_death(self.individual.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertTrue(us05_marriage_before_death(self.family.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-         self.individual.set_marriage_date("05 Jan 2020")
+         self.family.set_marriage_date("05 Jan 2020")
          self.individual.set_death_date("21 Mar 1960")
-         self.assertFalse(us05_marriage_before_death(self.individual.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertFalse(us05_marriage_before_death(self.family.marriage_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
     def  test_us06_divorce_before_death(self):
-         self.assertTrue(us06_divorce_before_death(self.individual.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertTrue(us06_divorce_before_death(self.family.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-         self.individual.set_divorce_date("11 Jan 2021")
+         self.family.set_divorce_date("11 Jan 2021")
          self.individual.set_death_date("15 Jun 2007")
-         self.assertFalse(us06_divorce_before_death(self.individual.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertFalse(us06_divorce_before_death(self.family.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-         self.individual.set_divorce_date("11 Mar 2000")
+         self.family.set_divorce_date("11 Mar 2000")
          self.individual.set_death_date("15 Jun 2019")
-         self.assertTrue(us06_divorce_before_death(self.individual.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertTrue(us06_divorce_before_death(self.family.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-         self.individual.set_divorce_date("11 Mar 2012")
+         self.family.set_divorce_date("11 Mar 2012")
          self.individual.set_death_date("15 Jun 2001")
-         self.assertFalse(us06_divorce_before_death(self.individual.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+         self.assertFalse(us06_divorce_before_death(self.family.divorce_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
 
     def  test_us03_birth_before_death(self):
@@ -92,22 +92,22 @@ class TestValidateDataMethod(unittest.TestCase):
         self.assertFalse(us03_birth_before_death(self.individual.birth_date, self.individual.death_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
     def  test_us04_marriage_before_divorce(self):
-        self.assertTrue(us04_marriage_before_divorce(self.individual.marriage_date, self.individual.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+        self.assertTrue(us04_marriage_before_divorce(self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
         self.individual.set_birth_date("14 Jun 1997")
-        self.individual.set_marriage_date("11 Mar 2021")
-        self.individual.set_divorce_date("15 Jun 2010")
-        self.assertFalse(us04_marriage_before_divorce(self.individual.marriage_date, self.individual.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+        self.family.set_marriage_date("11 Mar 2021")
+        self.family.set_divorce_date("15 Jun 2010")
+        self.assertFalse(us04_marriage_before_divorce(self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
         self.individual.set_birth_date("17 Oct 1960")
-        self.individual.set_marriage_date("11 Mar 2004")
-        self.individual.set_divorce_date("15 Jun 2010")
-        self.assertTrue(us04_marriage_before_divorce(self.individual.marriage_date, self.individual.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+        self.family.set_marriage_date("11 Mar 2004")
+        self.family.set_divorce_date("15 Jun 2010")
+        self.assertTrue(us04_marriage_before_divorce(self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
         self.individual.set_birth_date("11 Jun 1964")
-        self.individual.set_marriage_date("11 Mar 2016")
-        self.individual.set_divorce_date("15 Jun 2010")
-        self.assertFalse(us04_marriage_before_divorce(self.individual.marriage_date, self.individual.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+        self.family.set_marriage_date("11 Mar 2016")
+        self.family.set_divorce_date("15 Jun 2010")
+        self.assertFalse(us04_marriage_before_divorce(self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
         
 
 
