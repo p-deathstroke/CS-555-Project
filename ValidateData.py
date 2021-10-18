@@ -34,6 +34,20 @@ def us02_birth_before_marriage(birth_date, marriage_date, indiv_name, indiv_id, 
     else:
         return False
 
+def us03_birth_before_death(birth_date, death_date, indiv_name, indiv_id, family_id):
+    if birth_date > death_date:
+        ReportUtils.add_error_found("Error US03: Death date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before birth date. (" + str(family_id) + ")")
+        return True
+    else:
+        return False
+
+def us04_marriage_before_divorce(marriage_date, divorce_date, indiv_name, indiv_id, family_id):
+    if marriage_date > divorce_date:
+        ReportUtils.add_error_found("Error US04: Divorce date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before marriage date. (" + str(family_id) + ")")
+        return True
+    else:
+        return False
+
 
 def is_indiv_valid(indiv):
     is_valid = True
@@ -72,9 +86,12 @@ def validate_data(individuals, families):
     for indiv in individual_list:
         if is_indiv_valid(indiv):
             us01_dates_before_current_date(indiv.birth_date, 'Birth date', indiv)
+            us03_birth_before_death(indiv.birth_date,indiv.death_date, indiv.get_full_name(), str(indiv.id), str(family_id))
 
             if indiv.death_date is not None:
                 us01_dates_before_current_date(indiv.death_date, 'Death date', indiv)
+                us03_birth_before_death(indiv.birth_date,indiv.death_date, indiv.get_full_name(), str(indiv.id), str(family_id))
+
 
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
@@ -82,6 +99,7 @@ def validate_data(individuals, families):
 
                     if family_data is not None and family_data.marriage_date is not None:
                         us02_birth_before_marriage(indiv.birth_date, family_data.marriage_date, indiv.get_full_name(), str(indiv.id), str(family_id))
+                        us04_marriage_before_divorce(indiv.marriage_date, family_data.divorce_date,indiv.get_full_name(), str(indiv.id),str(family_id))
 
     for family in family_list:
         if is_fam_valid(family):
@@ -89,5 +107,12 @@ def validate_data(individuals, families):
 
             if family.divorce_date is not None:
                 us01_dates_before_current_date(family.divorce_date, 'Divorce date', family)
+
+            if indiv.get_family_id_as_spouse() != 'NA':
+                for family_id in indiv.family_id_as_spouse:
+                    family_data = get_family_by_family_id(family_id)
+
+                    if family_data is not None and family_data.marriage_date is not None:
+                        us04_marriage_before_divorce(indiv.marriage_date, family_data.divorce_date,indiv.get_full_name(), str(indiv.id),str(family_id))
 
     ReportUtils.compile_report()
