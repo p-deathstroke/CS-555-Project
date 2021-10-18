@@ -51,16 +51,16 @@ def us04_marriage_before_divorce(marriage_date, divorce_date, indiv_name, indiv_
 def us05_marriage_before_death(marriage_date, death_date, indiv_name, indiv_id, family_id):
      if marriage_date > death_date:
          ReportUtils.add_error_found("Error US05: Marriage date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before death date. (" + str(family_id) + ")")
-         return True
-     else:
          return False
+     else:
+         return True
 
 def us06_divorce_before_death(divorce_date, death_date, indiv_name, indiv_id, family_id):
      if divorce_date > death_date:
          ReportUtils.add_error_found("Error US06: Divorce date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before death date. (" + str(family_id) + ")")
-         return True
+         return False
      else:
-         return False    
+         return True    
 
 def us07_age_less_than_150(birth_date, death_date, indiv_name, indiv_id, family_id) -> bool:
     current_date: datetime = datetime.now()
