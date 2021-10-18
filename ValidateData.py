@@ -47,6 +47,20 @@ def us04_marriage_before_divorce(marriage_date, divorce_date, indiv_name, indiv_
         return True
     else:
        return False
+      
+def us05_marriage_before_death(marriage_date, death_date, indiv_name, indiv_id, family_id):
+     if marriage_date > death_date:
+         ReportUtils.add_error_found("Error US05: Marriage date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before death date. (" + str(family_id) + ")")
+         return True
+     else:
+         return False
+
+def us06_divorce_before_death(divorce_date, death_date, indiv_name, indiv_id, family_id):
+     if divorce_date > death_date:
+         ReportUtils.add_error_found("Error US06: Divorce date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before death date. (" + str(family_id) + ")")
+         return True
+     else:
+         return False    
 
 def us07_age_less_than_150(birth_date, death_date, indiv_name, indiv_id, family_id) -> bool:
     current_date: datetime = datetime.now()
@@ -74,8 +88,6 @@ def us08_birth_before_marriage_of_parents(birth_date, marriage_date, divorce_dat
             return False
     else:
         ReportUtils.add_error_found("Error US08:  "+ str(indiv_name) +  " (" + str(indiv_id) + ") Parents did not done Marrige. (" + str(family_id) + ")")
-
-
 
 def is_indiv_valid(indiv):
     is_valid = True
@@ -118,6 +130,7 @@ def validate_data(individuals, families):
 
             if indiv.death_date is not None:
                 us01_dates_before_current_date(indiv.death_date, 'Death date', indiv)
+                us05_marriage_before_death(indiv.marriage_date, family_data.death_date,indiv.get_full_name(), str(indiv.id),str(family_id))
                 us03_birth_before_death(indiv.birth_date,indiv.death_date, indiv.get_full_name(), str(indiv.id), str(family_id))
                 us07_age_less_than_150(indiv.birth_date, indiv.death_date, indiv.get_full_name, str(indiv.id))
 
@@ -135,6 +148,7 @@ def validate_data(individuals, families):
 
             if family.divorce_date is not None:
                 us01_dates_before_current_date(family.divorce_date, 'Divorce date', family)
+                us06_divorce_before_death(indiv.divorce_date, family_data.death_date,indiv.get_full_name(), str(indiv.id),str(family_id))
             
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
