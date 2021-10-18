@@ -34,6 +34,20 @@ def us02_birth_before_marriage(birth_date, marriage_date, indiv_name, indiv_id, 
     else:
         return False
 
+def us05_marriage_before_death(marriage_date, death_date, indiv_name, indiv_id, family_id):
+     if marriage_date > death_date:
+         ReportUtils.add_error_found("Error US05: Marriage date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before death date. (" + str(family_id) + ")")
+         return True
+     else:
+         return False
+
+def us06_divorce_before_death(divorce_date, death_date, indiv_name, indiv_id, family_id):
+     if divorce_date > death_date:
+         ReportUtils.add_error_found("Error US06: Divorce date of " + str(indiv_name) + " (" + str(indiv_id) + ") occurs before death date. (" + str(family_id) + ")")
+         return True
+     else:
+         return False                         
+
 
 def is_indiv_valid(indiv):
     is_valid = True
@@ -75,6 +89,7 @@ def validate_data(individuals, families):
 
             if indiv.death_date is not None:
                 us01_dates_before_current_date(indiv.death_date, 'Death date', indiv)
+                us05_marriage_before_death(indiv.marriage_date, family_data.death_date,indiv.get_full_name(), str(indiv.id),str(family_id))
 
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
@@ -82,12 +97,13 @@ def validate_data(individuals, families):
 
                     if family_data is not None and family_data.marriage_date is not None:
                         us02_birth_before_marriage(indiv.birth_date, family_data.marriage_date, indiv.get_full_name(), str(indiv.id), str(family_id))
-
+    
     for family in family_list:
         if is_fam_valid(family):
             us01_dates_before_current_date(family.marriage_date, 'Marriage date', family)
 
             if family.divorce_date is not None:
                 us01_dates_before_current_date(family.divorce_date, 'Divorce date', family)
+                us06_divorce_before_death(indiv.divorce_date, family_data.death_date,indiv.get_full_name(), str(indiv.id),str(family_id))
 
     ReportUtils.compile_report()
