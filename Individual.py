@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from dateutil.relativedelta import relativedelta
+
 
 class Individual:
     DATE_FORMAT_INPUT = '%d %b %Y'
