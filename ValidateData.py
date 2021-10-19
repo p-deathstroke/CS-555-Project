@@ -137,7 +137,7 @@ def validate_data(individuals, families):
             if indiv.death_date is not None:
                 us01_dates_before_current_date(indiv.death_date, 'Death date', indiv)
                 us03_birth_before_death(indiv.birth_date, indiv.death_date, indiv.get_full_name(), str(indiv.id))
-                us07_age_less_than_150(indiv.birth_date, indiv.death_date, indiv.get_full_name, str(indiv.id))
+                us07_age_less_than_150(indiv.birth_date, indiv.death_date, indiv.get_full_name(), str(indiv.id))
 
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
