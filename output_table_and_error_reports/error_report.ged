@@ -1,0 +1,22 @@
+Error US01: Birth date of Caroline Ruiz Nunez (@I1@) occurs before current date.
+Error US02: Birth date of Caroline Ruiz Nunez (@I1@) occurs before marriage date. (@F1@)
+Error US03: Death date of Julio Ruiz (@I3@) occurs before birth date.
+Error US07: Age of Julio Ruiz (@I3@) is Greater than 150 years.
+Error US08:  Julio Ruiz (@I3@) has not birth before the marriage of Parents. (@F2@)
+Error US06: Divorce date of Julio Ruiz (@I3@) occurs before death date. (@F2@)
+Error US05: Marriage date of Julio Ruiz (@I3@) occurs before death date. (@F2@)
+Error US05: Marriage date of Julio Ruiz (@I3@) occurs before death date. (@F3@)
+Error US08:  Patricia Nunez (@I5@) has not birth before the marriage of Parents. (@F2@)
+Error US01: Death date of Troy Nunez (@I6@) occurs before current date.
+Error US08:  Troy Nunez (@I6@) has not birth before the marriage of Parents. (@F4@)
+Error US04: Divorce date of Troy Nunez (@I6@) occurs before marriage date. (@F4@)
+Error US05: Marriage date of Troy Nunez (@I6@) occurs before death date. (@F4@)
+Error US08:  Ynes Requena (@I8@) has not birth before the marriage of Parents. (@F4@)
+Error US04: Divorce date of Ynes Requena (@I8@) occurs before marriage date. (@F4@)
+Error US01: Death date of Fermin Requena (@I10@) occurs before current date.
+Error US07: Age of Fermin Requena (@I10@) is not Greater than 150 years.
+Error US01: Birth date of Ezekiel Nunez (@I14@) occurs before current date.
+Error US03: Death date of Ezekiel Nunez (@I14@) occurs before birth date.
+Error US07: Age of Ezekiel Nunez (@I14@) is Greater than 150 years.
+Error US01: Divorce date of Family (@F2@) occurs before current date.
+Error US01: Marriage date of Family (@F4@) occurs before current date.

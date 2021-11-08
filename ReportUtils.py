@@ -3,7 +3,7 @@ error_and_anomalies_list = []
 
 def compile_report():
     if len(error_and_anomalies_list):
-        report = open('error_report.ged', 'w')
+        report = open('output_table_and_error_reports/error_report_sprint_2.ged', 'w')
         for message in error_and_anomalies_list:
             report.write(message + '\n')
 
