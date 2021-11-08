@@ -3,17 +3,34 @@ import unittest
 from Family import Family
 from Individual import Individual
 
-from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death
+from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death, \
+    us04_marriage_before_divorce, us07_age_less_than_150, us08_birth_before_marriage_of_parents, \
+    us05_marriage_before_death, us06_divorce_before_death, us09_birth_before_death_of_parents, us10_marriage_after_14
 
 
 class TestValidateDataMethod(unittest.TestCase):
     def setUp(self):
         self.individual = Individual("Indiv1")
+        self.individual.set_name("Individual /1/")
         self.individual.set_birth_date("12 DEC 1968")
         self.individual.set_death_date("18 JAN 2021")
         self.individual.set_family_id_as_spouse("Fam1")
 
+        self.individual2 = Individual("Indiv2")
+        self.individual.set_name("Individual /2/")
+        self.individual2.set_birth_date("1 APR 1968")
+        self.individual2.set_death_date("13 AUG 2021")
+        self.individual2.set_family_id_as_spouse("Fam1")
+
+        self.individual3 = Individual("Indiv3")
+        self.individual.set_name("Individual /3/")
+        self.individual3.set_birth_date("13 AUG 2021")
+        self.individual3.set_family_id_as_child("Fam1")
+
         self.family = Family("Fam1")
+        self.family.set_husb("Indiv1")
+        self.family.set_wife("Indiv2")
+        self.family.set_children("Indiv3")
         self.family.set_marriage_date("5 DEC 2001")
         self.family.set_divorce_date("10 JUL 2011")
 
@@ -142,6 +159,47 @@ class TestValidateDataMethod(unittest.TestCase):
         self.family.set_divorce_date("15 Jun 2010")
         
         self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+
+    def test_us09_birth_before_death_of_parents(self):
+        # parents death occur after birth
+        self.assertFalse(us09_birth_before_death_of_parents(self.individual3.birth_date, self.individual2.death_date, self.individual.death_date, self.individual3.get_full_name(), self.individual3.get_id(), self.family.id))
+
+        # both parents death occur before birth
+        self.individual.set_death_date("11 JAN 2020")
+        self.individual2.set_death_date("10 AUG 2021")
+        self.assertTrue(us09_birth_before_death_of_parents(self.individual3.birth_date, self.individual2.death_date, self.individual.death_date, self.individual3.get_full_name(), self.individual3.get_id(), self.family.id))
+
+        # mother death occur before birth
+        self.individual.set_death_date("18 JAN 2021")
+        self.assertTrue(us09_birth_before_death_of_parents(self.individual3.birth_date, self.individual2.death_date, self.individual.death_date, self.individual3.get_full_name(), self.individual3.get_id(), self.family.id))
+
+        # father death occur before birth
+        self.individual.set_death_date("11 JAN 2020")
+        self.individual2.set_death_date("13 AUG 2021")
+        self.assertTrue(us09_birth_before_death_of_parents(self.individual3.birth_date, self.individual2.death_date, self.individual.death_date, self.individual3.get_full_name(), self.individual3.get_id(), self.family.id))
+
+        self.assertFalse(us09_birth_before_death_of_parents(None, None, None, None, None, None))
+
+    def test_us10_marriage_after_14(self):
+        # both spouses were over 14 when marriage happened
+        self.assertFalse(us10_marriage_after_14(self.family.marriage_date, self.individual2.birth_date, self.individual.birth_date, self.family.id))
+
+        # both spouses were under 14 when marriage happened
+        self.individual2.set_birth_date("1 APR 2020")
+        self.individual.set_birth_date("12 DEC 2019")
+        self.assertTrue(us10_marriage_after_14(self.family.marriage_date, self.individual2.birth_date, self.individual.birth_date, self.family.id))
+
+        # wife was under 14 when marriage happened
+        self.individual.set_birth_date("12 DEC 1968")
+        self.assertTrue(us10_marriage_after_14(self.family.marriage_date, self.individual2.birth_date, self.individual.birth_date, self.family.id))
+
+        # husband was under 14 when marriage happened
+        self.individual.set_birth_date("12 DEC 2020")
+        self.individual2.set_birth_date("1 APR 1968")
+        self.assertTrue(us10_marriage_after_14(self.family.marriage_date, self.individual2.birth_date, self.individual.birth_date, self.family.id))
+
+        self.assertFalse(us10_marriage_after_14(None, None, None, self.family.id))
+        self.assertFalse(us10_marriage_after_14(self.family.marriage_date, None, None, self.family.id))
 
 
 if __name__ == "__main__":
