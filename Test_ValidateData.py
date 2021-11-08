@@ -3,9 +3,9 @@ import unittest
 from Family import Family
 from Individual import Individual
 
-from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death, \
-    us04_marriage_before_divorce, us07_age_less_than_150, us08_birth_before_marriage_of_parents, \
-    us05_marriage_before_death, us06_divorce_before_death, us09_birth_before_death_of_parents, us10_marriage_after_14
+
+from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, us09_birth_before_death_of_parents, us10_marriage_after_14
+
 
 
 class TestValidateDataMethod(unittest.TestCase):
@@ -158,7 +158,9 @@ class TestValidateDataMethod(unittest.TestCase):
         self.family.set_marriage_date("01 Sep 2004")
         self.family.set_divorce_date("15 Jun 2010")
         
-        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+
+        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))   
+        
 
     def test_us09_birth_before_death_of_parents(self):
         # parents death occur after birth
@@ -200,6 +202,109 @@ class TestValidateDataMethod(unittest.TestCase):
 
         self.assertFalse(us10_marriage_after_14(None, None, None, self.family.id))
         self.assertFalse(us10_marriage_after_14(self.family.marriage_date, None, None, self.family.id))
+
+    def test_us15_fewer_than_15_siblings(self):
+        self.family.set_husb("I0")
+        self.family.set_wife("I1")
+        self.family.set_children("I2")
+        self.family.set_children("I3")
+        self.family.set_children("I4")
+        self.family.set_children("I5")
+        self.family.set_children("I6")
+        self.family.set_children("I7")
+        self.family.set_children("I8")
+        self.family.set_children("I9")
+        self.family.set_children("I10")
+        self.family.set_children("I11")
+        self.family.set_children("I12")
+        self.family.set_children("I13")
+        self.family.set_children("I14")
+        self.family.set_children("I15")
+        self.family.set_children("I16")
+        self.family.set_children("I17")
+        self.assertFalse(us15_fewer_than_15_siblings(self.family))
+        
+        self.family.children = []
+        self.family.set_children("I2")
+        self.family.set_children("I3")
+        self.family.set_children("I4")
+        self.family.set_children("I5")
+        self.family.set_children("I6")
+        self.family.set_children("I7")
+        self.family.set_children("I8")
+        self.assertTrue(us15_fewer_than_15_siblings(self.family))
+        
+    def test_us16_male_last_names(self):
+        individuals = []
+        self.individual = Individual("Indv0")
+        self.individual.set_name("Pablo /Escobar/")
+        self.individual.set_gender('M')
+        self.family.set_husb("Indv0")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv1")
+        self.individual.set_name("Veronika /Esco/")
+        self.individual.set_gender('F')
+        self.family.set_wife("Indv1")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv2")
+        self.individual.set_name("Terry /Escobart/")
+        self.individual.set_gender('M')
+        self.family.set_children("Indv2")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv3")
+        self.individual.set_name("Maria /Escobar/")
+        self.individual.set_gender('F')
+        self.family.set_children("Indv3")
+        individuals.append(self.individual)
+        self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
+        
+        individuals = []
+        self.individual = Individual("Indv0")
+        self.individual.set_name("Danis /Hazard/")
+        self.individual.set_gender('M')
+        self.family.set_husb("Indv0")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv1")
+        self.individual.set_name("Vina /Hazard/")
+        self.individual.set_gender('F')
+        self.family.set_wife("Indv1")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv2")
+        self.individual.set_name("JR /Hazard/")
+        self.individual.set_gender('M')
+        self.family.set_children("Indv2")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv3")
+        self.individual.set_name("SR /Hazard/")
+        self.individual.set_gender('M')
+        self.family.set_children("Indv3")
+        individuals.append(self.individual)
+        self.assertTrue(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
+
+        individuals = []
+        self.individual = Individual("Indv0")
+        self.individual.set_name("Nick /Walter/")
+        self.individual.set_gender('M')
+        self.family.set_husb("Indv0")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv1")
+        self.individual.set_name("Moni /Walter/")
+        self.individual.set_gender('F')
+        self.family.set_wife("Indv1")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv2")
+        self.individual.set_name("Maris /Walter/")
+        self.individual.set_gender('M')
+        self.family.set_children("Indv2")
+        individuals.append(self.individual)
+        self.individual = Individual("Indv3")
+        self.individual.set_name("Haly /Walters/")
+        self.individual.set_gender('M')
+        self.family.set_children("Indv3")
+        individuals.append(self.individual)
+        self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
+
+        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
 
 if __name__ == "__main__":

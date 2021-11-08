@@ -138,6 +138,24 @@ def us10_marriage_after_14(marriage_date, wife_birth_date, husband_birth_date, f
 
     return False
 
+def us15_fewer_than_15_siblings(family) -> bool:
+  if len(family.children) < 15:
+      print("Success: Family (" + family.id +  ") : Siblings are less than 15")
+      return True
+  else:
+      print("Error US15: Family (" + family.id + ") : Siblings are greater than 15")
+      return False
+
+def us16_male_last_names(husb, wife, child, individuals):
+    ids = [husb, wife]
+    ids.extend(child)
+    males = [individual for individual in individuals if individual.gender == 'M' and individual.id in ids]
+    names = [male.name.split('/')[1] for male in males]
+    if len(set(names)) == 1:
+        return True
+    else:
+        print("Error US16: This Male has differnet last name or has no last Name.")
+        return False
 
 def is_indiv_valid(indiv):
     is_valid = True
@@ -225,5 +243,10 @@ def validate_data(individuals, families):
 
             if family.divorce_date is not None:
                 us01_dates_before_current_date(family.divorce_date, 'Divorce date', family)
+
+            if indiv.get_family_id_as_spouse() != 'NA':
+                for family_id in indiv.family_id_as_spouse:
+                    family_data = get_family_by_family_id(family_id)
+
 
     ReportUtils.compile_report()
