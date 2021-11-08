@@ -95,6 +95,47 @@ def us08_birth_before_marriage_of_parents(birth_date, marriage_date, divorce_dat
     else:
         ReportUtils.add_error_found("Error US08:  "+ str(indiv_name) +  " (" + str(indiv_id) + ") Parents did not done Marriage. (" + str(family_id) + ")")
 
+def us11_no_bigamy(family_id)->bool:
+    for f in family_id:
+        if 'HUSB' in family_id[f]:
+            hus_id = family_id[f]['HUSB']
+            if 'WIFE' in family_id[f]:
+                wife_id = family_id[f]['WIFE']
+
+        wife_count = 0
+        husb_count = 0
+
+        for f in family_id:
+            if 'HUSB' in family_id[f]:
+                hus_id2 = family_id[f]['HUSB']
+                if hus_id == hus_id2:
+                    husb_count += 1
+                    if husb_count > 1 :
+                     ReportUtils.add_error_found("Error US11: Husband performing bigamy")
+                     return False
+                if 'WIFE' in family_id[f]:
+                    wife_id2 = family_id[f]['WIFE']
+                    if wife_id == wife_id2:
+                        wife_count += 1
+                        if wife_count > 1 :
+                         ReportUtils.add_error_found("Error US11: Wife performing bigamy")
+                         return False
+            else:
+                return True
+
+def us12_parents_not_too_old(motherAge,fatherAge,chilAge,indiv_name, indiv_id, family_id):
+
+    motherAge = indiv_id(family_id['WIFE'])['age']
+    fatherAge = indiv_id(family_id['HUSB'])['age']
+    chilAge  = family_id['CHIL']
+    if motherAge - chilAge > 60 :
+        ReportUtils.add_error_found("Error US05: Mother is too old for  "+ str(indiv_name) +  " (" + str(indiv_id) + "). (" + str(family_id) + ")")
+        return False
+    elif fatherAge - chilAge > 80:
+        ReportUtils.add_error_found("Error US05: Father is too old for  "+ str(indiv_name) +  " (" + str(indiv_id) + "). (" + str(family_id) + ")")
+        return False
+    else:
+        return True
 
 def is_indiv_valid(indiv):
     is_valid = True

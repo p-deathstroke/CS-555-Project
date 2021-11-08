@@ -13,6 +13,7 @@ class Individual:
         self.gender = None
         self.birth_date = None
         self.death_date = None
+        self.age =None
         self.alive = True
         self.family_id_as_child = None
         self.family_id_as_spouse = []
@@ -31,6 +32,12 @@ class Individual:
 
     def get_gender(self):
         return self.gender
+
+    def set_age(self, age):
+        self.age = age
+
+    def get_age(self):
+        return self.age
 
     def set_birth_date(self, birth_date):
         self.birth_date = datetime.strptime(birth_date, self.DATE_FORMAT_INPUT)

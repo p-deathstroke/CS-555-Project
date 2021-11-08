@@ -3,7 +3,7 @@ import unittest
 from Family import Family
 from Individual import Individual
 
-from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death
+from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death,us11_no_bigamy,us12_parents_not_too_old
 
 
 class TestValidateDataMethod(unittest.TestCase):
@@ -143,6 +143,24 @@ class TestValidateDataMethod(unittest.TestCase):
         
         self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
+    def test_us11_no_bigamy(self):
 
+        self.assertTrue(us11_no_bigamy(self.family))
+      
+        self.assertFalse(us11_no_bigamy(self.family))
+
+    def test_us12_parents_not_too_old(self):
+
+        husb_age= self.individual.set_age("18 Sep 1960")
+        wife_age = self.individual.set_age("18 Dec 1964")
+        child_age= self.individual.set_age("20 Apr 2000")
+        self.assertTrue(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
+
+        
+        husb_age= self.individual.set_age("23 Jun 1920")
+        wife_age = self.individual.set_age("14 Apr 1924")
+        child_age= self.individual.set_age("11 Jul 2010")
+        self.assertFalse(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
+    
 if __name__ == "__main__":
     unittest.main(exit=False)
