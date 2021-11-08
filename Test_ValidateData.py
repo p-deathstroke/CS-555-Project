@@ -304,8 +304,7 @@ class TestValidateDataMethod(unittest.TestCase):
         individuals.append(self.individual)
         self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
 
-        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
-
+        
 
 if __name__ == "__main__":
     unittest.main(exit=False)
