@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta, date
 
+from dateutil.relativedelta import relativedelta
+
 import ReportUtils
 from Family import Family
 from Individual import Individual
@@ -12,6 +14,12 @@ def get_family_by_family_id(family_id):
     for family in family_list:
         if family.get_id() == family_id:
             return family
+
+
+def get_indiv_by_indiv_id(indiv_id):
+    for indiv in individual_list:
+        if indiv.get_id() == indiv_id:
+            return indiv
 
 
 def us01_dates_before_current_date(date, date_type, object_passed):
@@ -137,6 +145,59 @@ def us12_parents_not_too_old(motherAge,fatherAge,chilAge,indiv_name, indiv_id, f
     else:
         return True
 
+def us09_birth_before_death_of_parents(birth_date, mother_death_date, father_death_date, indiv_name, indiv_id, family_id):
+    is_birth_date_before_mother_death = True if mother_death_date is not None and mother_death_date < birth_date else False
+    is_birth_date_before_father_death = True if father_death_date is not None and father_death_date < birth_date + relativedelta(months=-9) else False
+
+    if is_birth_date_before_father_death and is_birth_date_before_mother_death:
+        ReportUtils.add_error_found("Error US09: Birth of " + str(indiv_name) + "(" + str(indiv_id) + ")" + " occurs after death of mother and after 9 months after death of father. (" + str(family_id) + ")")
+        return True
+    elif is_birth_date_before_mother_death:
+        ReportUtils.add_error_found("Error US09: Birth of " + str(indiv_name) + "(" + str(indiv_id) + ")" + " occurs after death of mother. (" + str(family_id) + ")")
+        return True
+    elif is_birth_date_before_father_death:
+        ReportUtils.add_error_found("Error US09: Birth of " + str(indiv_name) + "(" + str(indiv_id) + ")" + " occurs after 9 months after death of father. (" + str(family_id) + ")")
+        return True
+
+    return False
+
+
+def us10_marriage_after_14(marriage_date, wife_birth_date, husband_birth_date, family_id):
+    if marriage_date is not None:
+        is_wife_marriage_after_14 = True if wife_birth_date is not None and wife_birth_date + relativedelta(years=+14) > marriage_date else False
+        is_husb_marriage_after_14 = True if husband_birth_date is not None and husband_birth_date + relativedelta(years=+14) > marriage_date else False
+
+        if is_husb_marriage_after_14 and is_wife_marriage_after_14:
+            ReportUtils.add_error_found("Error US10: Marriage occurs before both spouses are at least 14 years old. (" + str(family_id) + ")")
+            return True
+        elif is_wife_marriage_after_14:
+            ReportUtils.add_error_found("Error US10: Marriage occurs before wife is at least 14 years old. (" + str(family_id) + ")")
+            return True
+        elif is_husb_marriage_after_14:
+            ReportUtils.add_error_found("Error US10: Marriage occurs before husband is at least 14 years old. (" + str(family_id) + ")")
+            return True
+
+    return False
+
+def us15_fewer_than_15_siblings(family) -> bool:
+  if len(family.children) < 15:
+      print("Success: Family (" + family.id +  ") : Siblings are less than 15")
+      return True
+  else:
+      print("Error US15: Family (" + family.id + ") : Siblings are greater than 15")
+      return False
+
+def us16_male_last_names(husb, wife, child, individuals):
+    ids = [husb, wife]
+    ids.extend(child)
+    males = [individual for individual in individuals if individual.gender == 'M' and individual.id in ids]
+    names = [male.name.split('/')[1] for male in males]
+    if len(set(names)) == 1:
+        return True
+    else:
+        print("Error US16: This Male has differnet last name or has no last Name.")
+        return False
+
 def is_indiv_valid(indiv):
     is_valid = True
 
@@ -160,6 +221,14 @@ def is_fam_valid(fam):
     if fam.marriage_date is None:
         is_valid = False
         ReportUtils.add_null_error_for_fam(fam.id, "Marriage date")
+
+    if fam.husb is None:
+        is_valid = False
+        ReportUtils.add_null_error_for_fam(fam.id, "Husband Id")
+
+    if fam.wife is None:
+        is_valid = False
+        ReportUtils.add_null_error_for_fam(fam.id, "Wife Id")
 
     return is_valid
 
@@ -201,13 +270,24 @@ def validate_data(individuals, families):
 
     for family in family_list:
         if is_fam_valid(family):
+            father_info = get_indiv_by_indiv_id(family.husb)
+            mother_info = get_indiv_by_indiv_id(family.wife)
+
             us01_dates_before_current_date(family.marriage_date, 'Marriage date', family)
+            us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
+
+            if family.get_children() != 'NA':
+                for child in family.children:
+                    child_info = get_indiv_by_indiv_id(child)
+
+                    us09_birth_before_death_of_parents(child_info.birth_date, mother_info.death_date, father_info.death_date, child_info.get_full_name(), child_info.id, family.id)
 
             if family.divorce_date is not None:
                 us01_dates_before_current_date(family.divorce_date, 'Divorce date', family)
-            
+
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
                     family_data = get_family_by_family_id(family_id)
+
 
     ReportUtils.compile_report()

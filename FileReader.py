@@ -4,7 +4,7 @@ from prettytable import PrettyTable
 
 from ValidateData import validate_data
 
-output = open('output_table_and_error_reports/project_04_output.txt', 'w')
+output = open('output_table_and_error_reports/sprint_2_output.txt', 'w')
 individual_list_from_file = []
 family_list_from_file = []
 individual = None
