@@ -2,10 +2,9 @@ import unittest
 
 from Family import Family
 from Individual import Individual
+from typing import List
 
-
-from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, us09_birth_before_death_of_parents, us10_marriage_after_14
-
+from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, us09_birth_before_death_of_parents, us10_marriage_after_14, us23_unique_name_and_birth, us24_unique_family_by_spouses
 
 
 class TestValidateDataMethod(unittest.TestCase):
@@ -304,7 +303,31 @@ class TestValidateDataMethod(unittest.TestCase):
         individuals.append(self.individual)
         self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
 
-        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
+        
+def test_us23_unique_name_and_birth(self):
+    indi1: Individual = Individual(_id="I1", name="John Doe", birt={'date': "14 OCT 1990"})
+    indi2: Individual = Individual(_id="I2", name="John Doe", birt={'date': "14 OCT 1990"})
+    indi3: Individual = Individual(_id="I3", name="Nidhi Patel", birt={'date': "1 OCT 1998"})
+    indi4: Individual = Individual(_id="I4", name="Patrik Kim", birt={'date': "4 NOV 2000"})
+    indi5: Individual = Individual(_id="I5", name="John Hill", birt={'date': "11 JAN 2010"})
+    individuals: List[Individual] = [indi1, indi2, indi3, indi4, indi5]
+    self.assertEqual(us23_unique_name_and_birth(individuals), [["I2", "John Doe", "14 OCT 1990"]])
+    
+    
+def test_us24_unique_family_by_spouses(self):
+        fam1: Family = Family(_id="I1", husb="John Doe1", wife="jennifer Doe1",
+                              marr={'date': "14 OCT 1993"})
+        fam2: Family = Family(_id="I2", husb="John Doe1", wife="jennifer Doe1",
+                              marr={'date': "14 OCT 1993"})
+        fam3: Family = Family(_id="I3", husb="Anurag Kim", wife="Emma Green",
+                              marr={'date': "1 OCT 1998"})
+        fam4: Family = Family(_id="I4", husb="Shrey Hill", wife="Olivia Kim",
+                              marr={'date': "4 NOV 2000"})
+        fam5: Family = Family(_id="I5", husb="Parthik Smith", wife="Sophia Taylor",
+                              marr={'date': "11 JAN 2010"})
+        families: List[Family] = [fam1, fam2, fam3, fam4, fam5]
+        self.assertEqual(us24_unique_family_by_spouses(families),
+                         [["I2", "John Doe1", "jennifer Doe1", "14 OCT 1993"]])
 
 
 if __name__ == "__main__":
