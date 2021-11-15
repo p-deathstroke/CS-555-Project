@@ -7,6 +7,7 @@ from typing import List
 from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, us09_birth_before_death_of_parents, us10_marriage_after_14, us23_unique_name_and_birth, us24_unique_family_by_spouses
 
 
+
 class TestValidateDataMethod(unittest.TestCase):
     def setUp(self):
         self.individual = Individual("Indiv1")
@@ -304,6 +305,7 @@ class TestValidateDataMethod(unittest.TestCase):
         self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
 
         
+
 def test_us23_unique_name_and_birth(self):
     indi1: Individual = Individual(_id="I1", name="John Doe", birt={'date': "14 OCT 1990"})
     indi2: Individual = Individual(_id="I2", name="John Doe", birt={'date': "14 OCT 1990"})
@@ -329,6 +331,23 @@ def test_us24_unique_family_by_spouses(self):
         self.assertEqual(us24_unique_family_by_spouses(families),
                          [["I2", "John Doe1", "jennifer Doe1", "14 OCT 1993"]])
 
+ def test_us11_no_bigamy(self):
+        self.assertTrue(us11_no_bigamy(self.family))
+      
+        self.assertFalse(us11_no_bigamy(self.family))
 
+    def test_us12_parents_not_too_old(self):
+
+        husb_age= self.individual.set_age("18 Sep 1960")
+        wife_age = self.individual.set_age("18 Dec 1964")
+        child_age= self.individual.set_age("20 Apr 2000")
+        self.assertTrue(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
+
+        
+        husb_age= self.individual.set_age("23 Jun 1920")
+        wife_age = self.individual.set_age("14 Apr 1924")
+        child_age= self.individual.set_age("11 Jul 2010")
+        self.assertFalse(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
+    
 if __name__ == "__main__":
     unittest.main(exit=False)
