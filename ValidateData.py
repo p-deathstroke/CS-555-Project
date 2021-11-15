@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 import ReportUtils
 from Family import Family
 from Individual import Individual
+from typing import List
 
 individual_list = []
 family_list = []
@@ -197,6 +198,38 @@ def us16_male_last_names(husb, wife, child, individuals):
     else:
         print("Error US16: This Male has differnet last name or has no last Name.")
         return False
+
+def us23_unique_name_and_birth(individuals: List[Individual]):
+    names_bdays = {}
+    same_data = []
+    for individual in individuals:
+        if individual.name in names_bdays:
+            if names_bdays[individual.name] == individual.birt["date"]:
+                same_data.append([individual.id, individual.name, individual.birt["date"]])
+                print(f"Individual ({individual.id}): duplicate individual having same name and birth_date")
+        else:
+            names_bdays[individual.name] = individual.birt["date"]
+            print(f"Individual ({individual.id}): No duplicate individual having same name and birth_date")
+
+    print(same_data)
+    return same_data
+
+def us24_unique_family_by_spouses(families: List[Family]):
+    names_marr = {}
+    same_data = []
+    for family in families:
+        if (family.husb, family.wife) in names_marr:
+            if names_marr[family.husb, family.wife] == family.marr["date"]:
+                same_data.append([family.id, family.husb, family.wife, family.marr["date"]])
+                print(f"Family ({family.id}): duplicate family having same data")
+
+        else:
+            names_marr[family.husb, family.wife] = family.marr["date"]
+            print(f"Family ({family.id}): No duplicate family having same data")
+
+    print("Duplicate family: ")
+    print(same_data)
+    return same_data
 
 def is_indiv_valid(indiv):
     is_valid = True
