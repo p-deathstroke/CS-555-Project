@@ -334,7 +334,11 @@ def validate_data(individuals, families):
             mother_info = get_indiv_by_indiv_id(family.wife)
 
             us01_dates_before_current_date(family.marriage_date, 'Marriage date', family)
-            us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
+
+            if mother_info is not None and father_info is not None:
+                us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
+                us17_no_marriages_to_descendants(family.id, family.husb, family.wife, get_family_by_family_id(father_info.family_id_as_child), get_family_by_family_id(mother_info.family_id_as_child))
+                us18_siblings_should_not_marry(father_info.family_id_as_child, mother_info.family_id_as_child, family.id)
 
             if family.get_children() != 'NA':
                 for child in family.children:
