@@ -1,10 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from dateutil.relativedelta import relativedelta
 
 import ReportUtils
 from Family import Family
 from Individual import Individual
+from typing import List
 
 individual_list = []
 family_list = []
@@ -225,6 +226,38 @@ def us18_siblings_should_not_marry(husb_fam_id_as_child, wife_fam_id_as_child, f
     return False
 
 
+def us23_unique_name_and_birth(individuals: List[Individual]):
+    names_bdays = {}
+    same_data = []
+    for individual in individuals:
+        if individual.name in names_bdays:
+            if names_bdays[individual.name] == individual.birt["date"]:
+                same_data.append([individual.id, individual.name, individual.birt["date"]])
+                print(f"Individual ({individual.id}): duplicate individual having same name and birth_date")
+        else:
+            names_bdays[individual.name] = individual.birt["date"]
+            print(f"Individual ({individual.id}): No duplicate individual having same name and birth_date")
+
+    print(same_data)
+    return same_data
+
+def us24_unique_family_by_spouses(families: List[Family]):
+    names_marr = {}
+    same_data = []
+    for family in families:
+        if (family.husb, family.wife) in names_marr:
+            if names_marr[family.husb, family.wife] == family.marr["date"]:
+                same_data.append([family.id, family.husb, family.wife, family.marr["date"]])
+                print(f"Family ({family.id}): duplicate family having same data")
+
+        else:
+            names_marr[family.husb, family.wife] = family.marr["date"]
+            print(f"Family ({family.id}): No duplicate family having same data")
+
+    print("Duplicate family: ")
+    print(same_data)
+    return same_data
+
 def is_indiv_valid(indiv):
     is_valid = True
 
@@ -301,16 +334,12 @@ def validate_data(individuals, families):
             mother_info = get_indiv_by_indiv_id(family.wife)
 
             us01_dates_before_current_date(family.marriage_date, 'Marriage date', family)
-
-            if father_info is not None and mother_info is not None:
-                if father_info.family_id_as_child is not None and mother_info.family_id_as_child is not None:
-                    us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
-                    us17_no_marriages_to_descendants(family.id, family.husb, family.wife, get_family_by_family_id(father_info.family_id_as_child), get_family_by_family_id(mother_info.family_id_as_child))
-                    us18_siblings_should_not_marry(father_info.family_id_as_child, mother_info.family_id_as_child, family.id)
+            us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
 
             if family.get_children() != 'NA':
                 for child in family.children:
                     child_info = get_indiv_by_indiv_id(child)
+
                     us09_birth_before_death_of_parents(child_info.birth_date, mother_info.death_date, father_info.death_date, child_info.get_full_name(), child_info.id, family.id)
 
             if family.divorce_date is not None:
@@ -319,5 +348,6 @@ def validate_data(individuals, families):
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
                     family_data = get_family_by_family_id(family_id)
+
 
     ReportUtils.compile_report()
