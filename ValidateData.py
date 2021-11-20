@@ -197,6 +197,49 @@ def us16_male_last_names(husb, wife, child, individuals):
     else:
         print("Error US16: This Male has differnet last name or has no last Name.")
         return False
+def us19_first_cousins_should_not_marry(family_id):
+
+     for f1 in family_id.values():
+            parents = f1.children
+            children = []
+            cousins = []
+            for parent in parents:
+                aunts_uncles = parents
+                for f2 in family_id.values():
+                    if (f2.husband == parent) or (f2.wife == parent):
+                        children.extend(f2.children)
+                    elif (f2.husband in aunts_uncles) or (f2.wife in aunts_uncles):
+                        cousins.extend(f2.children)
+                for f3 in family_id.values():
+                    if ((f3.husband in children) and (f3.wife in cousins)) or ((f3.husband in cousins) and (f3.wife in children)):
+                        return False
+                    else:
+                        return True   
+            
+def us20_aunts_and_uncles(individuals,indiv_id,family_id):
+    individual = individuals
+    if individual['spouse'] == 'NA':
+        return True
+
+    if individual['child'] == 'NA':
+        return True
+
+    personSiblings = family_id(individual['child'])
+
+    if personSiblings == []:
+        return True
+
+    if individual['id'] in personSiblings:
+        personSiblings.remove(individual['id'])
+    niecesAndNephews = []
+
+    for sibling in personSiblings:
+        kidFamily = indiv_id(sibling)['spouse']
+        if kidFamily != 'NA':
+            niecesAndNephews += family_id(kidFamily)['children']
+
+    if family_id(individuals['spouse'])['husbandId'] in niecesAndNephews or family_id(individuals['spouse'])['wifeId'] in niecesAndNephews:
+        return False
 
 def is_indiv_valid(indiv):
     is_valid = True
