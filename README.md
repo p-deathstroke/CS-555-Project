@@ -37,3 +37,16 @@ This is a project for the CS 555 Agile Methods for Software Development at Steve
 |US14|Multiple births <=5|Vishal|
 |US15|Fewer than 15 siblings|Parthik|
 |US16|Male last names|Parthik|
+
+- **User stories for sprint 3**:
+
+|Story ID|Story Name|Owner|
+|:---:|:---:|:---:|
+|US17|No marriages to descendants|Caroline|
+|US18|Siblings should not marry|Caroline|
+|US19|First cousins should not marry|Preet|
+|US20|Aunts and uncles|Preet|
+|US21|Correct gender for role|Vishal|
+|US22|Unique IDs|Vishal|
+|US23|Unique name and birth date|Parthik|
+|US24|Unique families by spouses|Parthik|

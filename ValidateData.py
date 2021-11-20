@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 import ReportUtils
 from Family import Family
 from Individual import Individual
+from typing import List
 
 individual_list = []
 family_list = []
@@ -86,7 +87,8 @@ def us07_age_less_than_150(birth_date, death_date, indiv_name, indiv_id) -> bool
         elif death_date - birth_date < years_150: 
             return True
     else:
-        if current_date - birth_date < years_150: return True
+        if current_date - birth_date < years_150:
+            return True
     ReportUtils.add_error_found("Error US07: Age of " + str(indiv_name) + " (" + str(indiv_id) + ") is not Greater than 150 years.")
             
     return False
@@ -98,12 +100,13 @@ def us08_birth_before_marriage_of_parents(birth_date, marriage_date, divorce_dat
         if birth_date - marriage_date > timedelta(minutes=0) and birth_date - divorce_date < timedelta(days=275):
             return True
         else:
-            ReportUtils.add_error_found("Error US08:  "+ str(indiv_name) +  " (" + str(indiv_id) + ") has not birth before the marriage of Parents. (" + str(family_id) + ")")
+            ReportUtils.add_error_found("Error US08:  " + str(indiv_name) + " (" + str(indiv_id) + ") has not birth before the marriage of Parents. (" + str(family_id) + ")")
             return False
     else:
-        ReportUtils.add_error_found("Error US08:  "+ str(indiv_name) +  " (" + str(indiv_id) + ") Parents did not done Marriage. (" + str(family_id) + ")")
+        ReportUtils.add_error_found("Error US08:  " + str(indiv_name) + " (" + str(indiv_id) + ") Parents did not done Marriage. (" + str(family_id) + ")")
 
-def us11_no_bigamy(family_id)->bool:
+
+def us11_no_bigamy(family_id) -> bool:
     for f in family_id:
         if 'HUSB' in family_id[f]:
             hus_id = family_id[f]['HUSB']
@@ -118,32 +121,33 @@ def us11_no_bigamy(family_id)->bool:
                 hus_id2 = family_id[f]['HUSB']
                 if hus_id == hus_id2:
                     husb_count += 1
-                    if husb_count > 1 :
-                     ReportUtils.add_error_found("Error US11: Husband performing bigamy")
-                     return False
+                    if husb_count > 1:
+                        ReportUtils.add_error_found("Error US11: Husband performing bigamy")
+                        return False
                 if 'WIFE' in family_id[f]:
                     wife_id2 = family_id[f]['WIFE']
                     if wife_id == wife_id2:
                         wife_count += 1
-                        if wife_count > 1 :
-                         ReportUtils.add_error_found("Error US11: Wife performing bigamy")
-                         return False
+                        if wife_count > 1:
+                            ReportUtils.add_error_found("Error US11: Wife performing bigamy")
+                            return False
             else:
                 return True
 
-def us12_parents_not_too_old(motherAge,fatherAge,chilAge,indiv_name, indiv_id, family_id):
 
-    motherAge = indiv_id(family_id['WIFE'])['age']
-    fatherAge = indiv_id(family_id['HUSB'])['age']
-    chilAge  = family_id['CHIL']
-    if motherAge - chilAge > 60 :
-        ReportUtils.add_error_found("Error US05: Mother is too old for  "+ str(indiv_name) +  " (" + str(indiv_id) + "). (" + str(family_id) + ")")
+def us12_parents_not_too_old(mother_age, father_age, child_age, indiv_name, indiv_id, family_id):
+    mother_age = indiv_id(family_id['WIFE'])['age']
+    father_age = indiv_id(family_id['HUSB'])['age']
+    child_age = family_id['CHIL']
+    if mother_age - child_age > 60:
+        ReportUtils.add_error_found("Error US05: Mother is too old for  " + str(indiv_name) + " (" + str(indiv_id) + "). (" + str(family_id) + ")")
         return False
-    elif fatherAge - chilAge > 80:
-        ReportUtils.add_error_found("Error US05: Father is too old for  "+ str(indiv_name) +  " (" + str(indiv_id) + "). (" + str(family_id) + ")")
+    elif father_age - child_age > 80:
+        ReportUtils.add_error_found("Error US05: Father is too old for  " + str(indiv_name) + " (" + str(indiv_id) + "). (" + str(family_id) + ")")
         return False
     else:
         return True
+
 
 def us09_birth_before_death_of_parents(birth_date, mother_death_date, father_death_date, indiv_name, indiv_id, family_id):
     is_birth_date_before_mother_death = True if mother_death_date is not None and mother_death_date < birth_date else False
@@ -179,13 +183,15 @@ def us10_marriage_after_14(marriage_date, wife_birth_date, husband_birth_date, f
 
     return False
 
+
 def us15_fewer_than_15_siblings(family) -> bool:
-  if len(family.children) < 15:
-      print("Success: Family (" + family.id +  ") : Siblings are less than 15")
-      return True
-  else:
-      print("Error US15: Family (" + family.id + ") : Siblings are greater than 15")
-      return False
+    if len(family.children) < 15:
+        print("Success: Family (" + family.id + ") : Siblings are less than 15")
+        return True
+    else:
+        print("Error US15: Family (" + family.id + ") : Siblings are greater than 15")
+        return False
+
 
 def us16_male_last_names(husb, wife, child, individuals):
     ids = [husb, wife]
@@ -195,7 +201,7 @@ def us16_male_last_names(husb, wife, child, individuals):
     if len(set(names)) == 1:
         return True
     else:
-        print("Error US16: This Male has differnet last name or has no last Name.")
+        print("Error US16: This Male has different last name or has no last Name.")
         return False
 def us19_first_cousins_should_not_marry(family_id):
 
@@ -240,6 +246,60 @@ def us20_aunts_and_uncles(individuals,indiv_id,family_id):
 
     if family_id(individuals['spouse'])['husbandId'] in niecesAndNephews or family_id(individuals['spouse'])['wifeId'] in niecesAndNephews:
         return False
+
+
+def us17_no_marriages_to_descendants(family_id, husb_id, wife_id, husb_fam_id_as_child_info, wife_fam_id_as_child_info):
+    if husb_id and wife_id is not None:
+        if husb_fam_id_as_child_info is not None and wife_fam_id_as_child_info is not None:
+            if husb_fam_id_as_child_info.wife == wife_id:
+                ReportUtils.add_error_found("Error US17: Mother cannot be married to son. (" + family_id + ")")
+                return True
+
+            if wife_fam_id_as_child_info.husb == husb_id:
+                ReportUtils.add_error_found("Error US17: Father cannot be married to daughter. (" + family_id + ")")
+                return True
+    return False
+
+
+def us18_siblings_should_not_marry(husb_fam_id_as_child, wife_fam_id_as_child, fam_id):
+    if husb_fam_id_as_child is not None and wife_fam_id_as_child is not None:
+        if husb_fam_id_as_child == wife_fam_id_as_child:
+            ReportUtils.add_error_found("Error US18: Husband and Wife cannot be siblings (" + str(fam_id) + ")")
+            return True
+    return False
+
+
+def us23_unique_name_and_birth(individuals: List[Individual]):
+    names_bdays = {}
+    same_data = []
+    for individual in individuals:
+        if individual.name in names_bdays:
+            if names_bdays[individual.name] == individual.birt["date"]:
+                same_data.append([individual.id, individual.name, individual.birt["date"]])
+                print(f"Individual ({individual.id}): duplicate individual having same name and birth_date")
+        else:
+            names_bdays[individual.name] = individual.birt["date"]
+            print(f"Individual ({individual.id}): No duplicate individual having same name and birth_date")
+
+    print(same_data)
+    return same_data
+
+def us24_unique_family_by_spouses(families: List[Family]):
+    names_marr = {}
+    same_data = []
+    for family in families:
+        if (family.husb, family.wife) in names_marr:
+            if names_marr[family.husb, family.wife] == family.marr["date"]:
+                same_data.append([family.id, family.husb, family.wife, family.marr["date"]])
+                print(f"Family ({family.id}): duplicate family having same data")
+
+        else:
+            names_marr[family.husb, family.wife] = family.marr["date"]
+            print(f"Family ({family.id}): No duplicate family having same data")
+
+    print("Duplicate family: ")
+    print(same_data)
+    return same_data
 
 def is_indiv_valid(indiv):
     is_valid = True
@@ -317,7 +377,11 @@ def validate_data(individuals, families):
             mother_info = get_indiv_by_indiv_id(family.wife)
 
             us01_dates_before_current_date(family.marriage_date, 'Marriage date', family)
-            us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
+
+            if mother_info is not None and father_info is not None:
+                us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
+                us17_no_marriages_to_descendants(family.id, family.husb, family.wife, get_family_by_family_id(father_info.family_id_as_child), get_family_by_family_id(mother_info.family_id_as_child))
+                us18_siblings_should_not_marry(father_info.family_id_as_child, mother_info.family_id_as_child, family.id)
 
             if family.get_children() != 'NA':
                 for child in family.children:

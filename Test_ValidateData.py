@@ -2,12 +2,13 @@ import unittest
 
 from Family import Family
 from Individual import Individual
+from typing import List
 
-
-from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death,us04_marriage_before_divorce,us07_age_less_than_150, us08_birth_before_marriage_of_parents,us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, us09_birth_before_death_of_parents, us10_marriage_after_14,us11_no_bigamy,us12_parents_not_too_old,us19_first_cousins_should_not_marry,us20_aunts_and_uncles
-
-
-
+from ValidateData import us01_dates_before_current_date, us02_birth_before_marriage, us03_birth_before_death, \
+    us04_marriage_before_divorce, us07_age_less_than_150, us08_birth_before_marriage_of_parents, \
+    us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, \
+    us09_birth_before_death_of_parents, us10_marriage_after_14, us11_no_bigamy, us12_parents_not_too_old, \
+    us18_siblings_should_not_marry, us17_no_marriages_to_descendants, us23_unique_name_and_birth, us24_unique_family_by_spouses,us19_first_cousins_should_not_marry,us20_aunts_and_uncles
 
 class TestValidateDataMethod(unittest.TestCase):
     def setUp(self):
@@ -34,6 +35,18 @@ class TestValidateDataMethod(unittest.TestCase):
         self.family.set_children("Indiv3")
         self.family.set_marriage_date("5 DEC 2001")
         self.family.set_divorce_date("10 JUL 2011")
+
+        self.family2 = Family("Fam2")
+        self.family2.set_husb("Indiv4")
+        self.family2.set_wife("Indiv3")
+        self.family2.set_children("Indiv")
+        self.family2.set_marriage_date("5 DEC 2020")
+
+        self.family3 = Family("Fam3")
+        self.family3.set_husb("Indiv3")
+        self.family3.set_wife("Indiv7")
+        self.family3.set_children("Indiv2")
+        self.family3.set_marriage_date("5 DEC 2020")
 
     def tearDown(self):
         del self.family
@@ -158,10 +171,8 @@ class TestValidateDataMethod(unittest.TestCase):
         self.individual.set_birth_date("25 Jan 2015")
         self.family.set_marriage_date("01 Sep 2004")
         self.family.set_divorce_date("15 Jun 2010")
-        
 
-        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))   
-        
+        self.assertFalse(us08_birth_before_marriage_of_parents(self.individual.birth_date, self.family.marriage_date, self.family.divorce_date, self.individual.get_full_name(), self.individual.id, self.family.id))
 
     def test_us09_birth_before_death_of_parents(self):
         # parents death occur after birth
@@ -305,34 +316,84 @@ class TestValidateDataMethod(unittest.TestCase):
         individuals.append(self.individual)
         self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
 
-        
-def test_us11_no_bigamy(self):
+
+    def test_us23_unique_name_and_birth(self):
+        indi1: Individual = Individual(_id="I1", name="John Doe", birt={'date': "14 OCT 1990"})
+        indi2: Individual = Individual(_id="I2", name="John Doe", birt={'date': "14 OCT 1990"})
+        indi3: Individual = Individual(_id="I3", name="Nidhi Patel", birt={'date': "1 OCT 1998"})
+        indi4: Individual = Individual(_id="I4", name="Patrik Kim", birt={'date': "4 NOV 2000"})
+        indi5: Individual = Individual(_id="I5", name="John Hill", birt={'date': "11 JAN 2010"})
+        individuals: List[Individual] = [indi1, indi2, indi3, indi4, indi5]
+        self.assertEqual(us23_unique_name_and_birth(individuals), [["I2", "John Doe", "14 OCT 1990"]])
+
+    def test_us24_unique_family_by_spouses(self):
+        fam1: Family = Family(_id="I1", husb="John Doe1", wife="jennifer Doe1",
+                              marr={'date': "14 OCT 1993"})
+        fam2: Family = Family(_id="I2", husb="John Doe1", wife="jennifer Doe1",
+                              marr={'date': "14 OCT 1993"})
+        fam3: Family = Family(_id="I3", husb="Anurag Kim", wife="Emma Green",
+                              marr={'date': "1 OCT 1998"})
+        fam4: Family = Family(_id="I4", husb="Shrey Hill", wife="Olivia Kim",
+                              marr={'date': "4 NOV 2000"})
+        fam5: Family = Family(_id="I5", husb="Parthik Smith", wife="Sophia Taylor",
+                              marr={'date': "11 JAN 2010"})
+        families: List[Family] = [fam1, fam2, fam3, fam4, fam5]
+        self.assertEqual(us24_unique_family_by_spouses(families),
+                         [["I2", "John Doe1", "jennifer Doe1", "14 OCT 1993"]])
+
+    def test_us11_no_bigamy(self):
         self.assertTrue(us11_no_bigamy(self.family))
-      
         self.assertFalse(us11_no_bigamy(self.family))
 
-def test_us12_parents_not_too_old(self):
-
-        husb_age= self.individual.set_age("18 Sep 1960")
+    def test_us12_parents_not_too_old(self):
+        husb_age = self.individual.set_age("18 Sep 1960")
         wife_age = self.individual.set_age("18 Dec 1964")
-        child_age= self.individual.set_age("20 Apr 2000")
-        self.assertTrue(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
+        child_age = self.individual.set_age("20 Apr 2000")
+        self.assertTrue(us12_parents_not_too_old(husb_age, wife_age, child_age, self.individual.get_full_name(), self.individual.id, self.family.id))
 
-        
-        husb_age= self.individual.set_age("23 Jun 1920")
+        husb_age = self.individual.set_age("23 Jun 1920")
         wife_age = self.individual.set_age("14 Apr 1924")
         child_age= self.individual.set_age("11 Jul 2010")
         self.assertFalse(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
 
-def test_us19_first_cousins_should_not_marry(self):
+    def test_us19_first_cousins_should_not_marry(self):
 
     self.assertTrue(us19_first_cousins_should_not_marry(self.family))
     self.assertFalse(us19_first_cousins_should_not_marry(self.individual,self.family))
 
-def test_us20_aunts_and_uncles(self):
+    def test_us20_aunts_and_uncles(self):
     
     self.assertTrue(us20_aunts_and_uncles())
     self.assertFalse(us20_aunts_and_uncles())
+
+
+    def test_us17_no_marriages_to_descendants(self):
+        self.assertFalse(us17_no_marriages_to_descendants(self.family.id, self.family.husb, self.family.wife, self.family2, self.family3))
+
+        self.family4 = Family("Fam4")
+        self.family4.set_husb("Indiv1")
+        self.family4.set_wife("Indiv3")
+        self.family4.set_marriage_date("5 DEC 2020")
+        self.assertTrue(us17_no_marriages_to_descendants(self.family4.id, self.family4.husb, self.family4.wife, self.family2, self.family3))
+
+        self.family4.set_husb("Indiv3")
+        self.family4.set_wife("Indiv2")
+        self.family4.set_marriage_date("5 DEC 2020")
+        self.assertTrue(us17_no_marriages_to_descendants(self.family4.id, self.family4.husb, self.family4.wife, self.family2, self.family3))
+
+        self.assertFalse(us17_no_marriages_to_descendants(self.family4.id, self.family4.husb, self.family4.wife, None, None))
+
+    def test_us18_siblings_cannot_be_siblings(self):
+        self.assertFalse(us18_siblings_should_not_marry(self.individual.family_id_as_child, self.individual2.family_id_as_child, self.family.id))
+
+        self.individual.set_family_id_as_child("USF18F1")
+        self.individual2.set_family_id_as_child("USF18F2")
+        self.assertFalse(us18_siblings_should_not_marry(self.individual.family_id_as_child, self.individual2.family_id_as_child, self.family.id))
+
+        self.individual.set_family_id_as_child("USF18F1")
+        self.individual2.set_family_id_as_child("USF18F1")
+        self.assertTrue(us18_siblings_should_not_marry(self.individual.family_id_as_child, self.individual2.family_id_as_child, self.family.id))
+
 
 
 if __name__ == "__main__":
