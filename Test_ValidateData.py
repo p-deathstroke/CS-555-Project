@@ -8,7 +8,8 @@ from ValidateData import us01_dates_before_current_date, us02_birth_before_marri
     us04_marriage_before_divorce, us07_age_less_than_150, us08_birth_before_marriage_of_parents, \
     us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, \
     us09_birth_before_death_of_parents, us10_marriage_after_14, us11_no_bigamy, us12_parents_not_too_old, \
-    us18_siblings_should_not_marry, us17_no_marriages_to_descendants, us23_unique_name_and_birth, us24_unique_family_by_spouses
+    us18_siblings_should_not_marry, us17_no_marriages_to_descendants, us23_unique_name_and_birth, us24_unique_family_by_spouses,us19_first_cousins_should_not_marry,us20_aunts_and_uncles
+
 class TestValidateDataMethod(unittest.TestCase):
     def setUp(self):
         self.individual = Individual("Indiv1")
@@ -315,6 +316,7 @@ class TestValidateDataMethod(unittest.TestCase):
         individuals.append(self.individual)
         self.assertFalse(us16_male_last_names(self.family.husb, self.family.wife, self.family.children, individuals))
 
+
     def test_us23_unique_name_and_birth(self):
         indi1: Individual = Individual(_id="I1", name="John Doe", birt={'date': "14 OCT 1990"})
         indi2: Individual = Individual(_id="I2", name="John Doe", birt={'date': "14 OCT 1990"})
@@ -351,8 +353,19 @@ class TestValidateDataMethod(unittest.TestCase):
 
         husb_age = self.individual.set_age("23 Jun 1920")
         wife_age = self.individual.set_age("14 Apr 1924")
-        child_age = self.individual.set_age("11 Jul 2010")
-        self.assertFalse(us12_parents_not_too_old(husb_age, wife_age, child_age, self.individual.get_full_name(), self.individual.id, self.family.id))
+        child_age= self.individual.set_age("11 Jul 2010")
+        self.assertFalse(us12_parents_not_too_old(husb_age,wife_age,child_age, self.individual.get_full_name(),self.individual.id, self.family.id))
+
+    def test_us19_first_cousins_should_not_marry(self):
+
+    self.assertTrue(us19_first_cousins_should_not_marry(self.family))
+    self.assertFalse(us19_first_cousins_should_not_marry(self.individual,self.family))
+
+    def test_us20_aunts_and_uncles(self):
+    
+    self.assertTrue(us20_aunts_and_uncles())
+    self.assertFalse(us20_aunts_and_uncles())
+
 
     def test_us17_no_marriages_to_descendants(self):
         self.assertFalse(us17_no_marriages_to_descendants(self.family.id, self.family.husb, self.family.wife, self.family2, self.family3))
@@ -380,6 +393,7 @@ class TestValidateDataMethod(unittest.TestCase):
         self.individual.set_family_id_as_child("USF18F1")
         self.individual2.set_family_id_as_child("USF18F1")
         self.assertTrue(us18_siblings_should_not_marry(self.individual.family_id_as_child, self.individual2.family_id_as_child, self.family.id))
+
 
 
 if __name__ == "__main__":
