@@ -358,13 +358,12 @@ class TestValidateDataMethod(unittest.TestCase):
 
     def test_us19_first_cousins_should_not_marry(self):
 
-    self.assertTrue(us19_first_cousins_should_not_marry(self.family))
-    self.assertFalse(us19_first_cousins_should_not_marry(self.individual,self.family))
+        self.assertTrue(us19_first_cousins_should_not_marry(self.family))
+        self.assertFalse(us19_first_cousins_should_not_marry(self.individual,self.family))
 
     def test_us20_aunts_and_uncles(self):
-    
-    self.assertTrue(us20_aunts_and_uncles())
-    self.assertFalse(us20_aunts_and_uncles())
+        self.assertTrue(us20_aunts_and_uncles())
+        self.assertFalse(us20_aunts_and_uncles())
 
 
     def test_us17_no_marriages_to_descendants(self):
