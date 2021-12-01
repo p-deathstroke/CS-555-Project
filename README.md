@@ -50,3 +50,16 @@ This is a project for the CS 555 Agile Methods for Software Development at Steve
 |US22|Unique IDs|Vishal|
 |US23|Unique name and birth date|Parthik|
 |US24|Unique families by spouses|Parthik|
+
+- **User stories for sprint 4**:
+
+|Story ID|Story Name|Owner|
+|:---:|:---:|:---:|
+|US25|Unique first names in families|Caroline|
+|US26|Corresponding entries|Caroline|
+|US27|Include individual ages|Preet|
+|US28|Order siblings by age|Preet|
+|US29|List deceased|Vishal|
+|US30|List living married| Vishal
+|US31|List living single|Parthik|
+|US32|List multiple births|Parthik|
