@@ -8,7 +8,7 @@ from ValidateData import us01_dates_before_current_date, us02_birth_before_marri
     us04_marriage_before_divorce, us07_age_less_than_150, us08_birth_before_marriage_of_parents, \
     us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, \
     us09_birth_before_death_of_parents, us10_marriage_after_14, us11_no_bigamy, us12_parents_not_too_old, \
-    us18_siblings_should_not_marry, us17_no_marriages_to_descendants, us23_unique_name_and_birth, us24_unique_family_by_spouses,us19_first_cousins_should_not_marry,us20_aunts_and_uncles
+    us18_siblings_should_not_marry, us17_no_marriages_to_descendants, us23_unique_name_and_birth, us24_unique_family_by_spouses,us19_first_cousins_should_not_marry,us20_aunts_and_uncles,  us31_isSingleAliveOver30, us32_hasMultipleBirths
 
 class TestValidateDataMethod(unittest.TestCase):
     def setUp(self):
@@ -393,7 +393,24 @@ class TestValidateDataMethod(unittest.TestCase):
         self.individual2.set_family_id_as_child("USF18F1")
         self.assertTrue(us18_siblings_should_not_marry(self.individual.family_id_as_child, self.individual2.family_id_as_child, self.family.id))
 
+    def test_us31_isSingleAliveOver30(self):
+        ind = us31_isSingleAliveOver30()
+        # ind.age = 31
+        ind.alive = True
+        self.assertTrue(ind)
 
+        ind = us31_isSingleAliveOver30()
+        self.assertFalse(ind)
+
+    def test_us32_hasMultipleBirths(self):
+        birthdate1 = datetime.now()
+        birthdate2 = datetime(2009, 10, 5, 18, 00)
+        self.assertFalse(us32_hasMultipleBirths([birthdate1, birthdate2]))
+
+        birthdate1 = datetime.datetime.now()
+        birthdate2 = datetime.datetime.now()
+        birthdate3 = datetime.datetime(2009, 10, 5, 18, 00)
+        self.assertTrue(us32_hasMultipleBirths([birthdate1, birthdate2, birthdate3]))
 
 if __name__ == "__main__":
     unittest.main(exit=False)
