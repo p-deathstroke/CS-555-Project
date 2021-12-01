@@ -301,6 +301,39 @@ def us24_unique_family_by_spouses(families: List[Family]):
     print(same_data)
     return same_data
 
+def us31_isSingleAliveOver30():
+    retValue = False
+    age = -1
+    alive = False
+    spouse = []
+    try:
+        retValue = int(age) > 30 and alive and len(spouse) == 0
+    except:
+        retValue = False
+
+    return retValue
+
+def us32_hasMultipleBirths(siblingDates):
+    datesDict = {}
+    for d in siblingDates:
+        if d in datesDict:  
+            datesDict[d] = datesDict.get(d) + 1
+        else:  
+            found = False
+            for d2 in datesDict:
+                delta = d2 - d
+                if (abs(delta.days) < 2):
+                    datesDict[d2] = datesDict.get(d2) + 1
+                    found = True
+            if not found:
+                datesDict[d] = 1
+    for birthDate in datesDict.keys():
+        if datesDict[birthDate] > 1:
+            return birthDate.strftime('%d %b %Y')
+    return False
+
+
+
 def is_indiv_valid(indiv):
     is_valid = True
 
