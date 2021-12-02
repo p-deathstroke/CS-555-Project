@@ -203,6 +203,8 @@ def us16_male_last_names(husb, wife, child, individuals):
     else:
         print("Error US16: This Male has different last name or has no last Name.")
         return False
+
+
 def us19_first_cousins_should_not_marry(family_id):
 
      for f1 in family_id.values():
@@ -221,7 +223,8 @@ def us19_first_cousins_should_not_marry(family_id):
                         return False
                     else:
                         return True   
-            
+
+
 def us20_aunts_and_uncles(individuals,indiv_id,family_id):
     individual = individuals
     if individual['spouse'] == 'NA':
@@ -284,6 +287,7 @@ def us23_unique_name_and_birth(individuals: List[Individual]):
     print(same_data)
     return same_data
 
+
 def us24_unique_family_by_spouses(families: List[Family]):
     names_marr = {}
     same_data = []
@@ -301,17 +305,61 @@ def us24_unique_family_by_spouses(families: List[Family]):
     print(same_data)
     return same_data
 
+
+def us25_unique_first_names_in_families(family_id, child_list):
+    child_name_list = []
+    child_birthday_list = []
+    child_duplicate_list = []
+
+    if child_list is not None:
+        for child_id in child_list:
+            child_info = get_indiv_by_indiv_id(child_id)
+
+            if child_info is not None:
+                if child_info.birth_date is not None and child_info.get_full_name() != "":
+                    child_name_list.append(child_info.get_full_name())
+                    child_birthday_list.append(str(child_info.birth_date))
+
+                    if child_name_list.count(child_info.get_full_name()) > 1 and child_birthday_list.count(str(child_info.birth_date)) > 1:
+                        if child_duplicate_list.count(child_info.get_full_name()) == 0:
+                            child_duplicate_list.append(child_info.get_full_name())
+
+    if child_duplicate_list:
+        ReportUtils.add_error_found("Error US25: Family (" + family_id + ") cannot have no more than one child with the same name and birth date. Duplicate children names: " + str(child_duplicate_list))
+        return False
+
+    return True
+
+
+def us26_corresponding_entries(id_to_check, family_or_indiv):
+    if id_to_check is not None:
+        if family_or_indiv == 'FAMILY':
+            if get_family_by_family_id(id_to_check) is None:
+                ReportUtils.add_error_found("Error US26: Corresponding entry was not found for family (" + id_to_check + ")")
+                return False
+        elif family_or_indiv == 'INDIV':
+            if get_indiv_by_indiv_id(id_to_check) is None:
+                ReportUtils.add_error_found("Error US26: Corresponding entry was not found for individual (" + id_to_check + ")")
+                return False
+        else:
+            return False
+    else:
+        return False
+
+    return True
+
+
 def us27_include_individual_ages(birth_date,death_date):
   if birth_date=="NA":
     return "NA", "NA"
-  else: 
+  else:
     birth_month= birth_date.split('-')[1]
     birth_day= birth_date.split('-')[2]
     if death_date!="NA":
         death_month=death_date.split('-')[1]
         death_day=death_date.split('-')[2]
         return int(death_date.split('-')[0]) - int(birth_date.split('-')[0])-((int(death_month), int(death_day))< (int(birth_month), int(birth_day))), False
-    else: 
+    else:
         birth_month= birth_date.split('-')[1]
         birth_day= birth_date.split('-')[2]
         today = datetime.today()
@@ -324,6 +372,7 @@ def us28_order_siblings_by_age(family):
         sorted_siblings = sorted(siblings, ((siblings)['birthday']))
     return sorted_siblings
 
+
 def us31_isSingleAliveOver30():
     retValue = False
     age = -1
@@ -335,6 +384,7 @@ def us31_isSingleAliveOver30():
         retValue = False
 
     return retValue
+
 
 def us32_hasMultipleBirths(siblingDates):
     datesDict = {}
@@ -354,7 +404,6 @@ def us32_hasMultipleBirths(siblingDates):
         if datesDict[birthDate] > 1:
             return birthDate.strftime('%d %b %Y')
     return False
-
 
 
 def is_indiv_valid(indiv):
@@ -408,6 +457,13 @@ def validate_data(individuals, families):
                 us03_birth_before_death(indiv.birth_date, indiv.death_date, indiv.get_full_name(), str(indiv.id))
                 us07_age_less_than_150(indiv.birth_date, indiv.death_date, indiv.get_full_name(), str(indiv.id))
 
+            if indiv.family_id_as_spouse:
+                for fam_id in indiv.family_id_as_spouse:
+                    us26_corresponding_entries(str(fam_id), 'FAMILY')
+
+            if indiv.family_id_as_child is not None:
+                us26_corresponding_entries(str(indiv.family_id_as_child), 'FAMILY')
+
             if indiv.get_family_id_as_spouse() != 'NA':
                 for family_id in indiv.family_id_as_spouse:
                     family_data = get_family_by_family_id(family_id)
@@ -433,6 +489,8 @@ def validate_data(individuals, families):
             mother_info = get_indiv_by_indiv_id(family.wife)
 
             us01_dates_before_current_date(family.marriage_date, 'Marriage date', family)
+            us26_corresponding_entries(family.husb, "INDIV")
+            us26_corresponding_entries(family.wife, "INDIV")
 
             if mother_info is not None and father_info is not None:
                 us10_marriage_after_14(family.marriage_date, mother_info.birth_date, father_info.birth_date, family.id)
@@ -440,10 +498,14 @@ def validate_data(individuals, families):
                 us18_siblings_should_not_marry(father_info.family_id_as_child, mother_info.family_id_as_child, family.id)
 
             if family.get_children() != 'NA':
+                us25_unique_first_names_in_families(family.id, family.children)
+
                 for child in family.children:
+                    us26_corresponding_entries(str(child), "INDIV")
                     child_info = get_indiv_by_indiv_id(child)
 
-                    us09_birth_before_death_of_parents(child_info.birth_date, mother_info.death_date, father_info.death_date, child_info.get_full_name(), child_info.id, family.id)
+                    if child_info is not None and mother_info is not None and father_info is not None:
+                        us09_birth_before_death_of_parents(child_info.birth_date, mother_info.death_date, father_info.death_date, child_info.get_full_name(), child_info.id, family.id)
 
             if family.divorce_date is not None:
                 us01_dates_before_current_date(family.divorce_date, 'Divorce date', family)

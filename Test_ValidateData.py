@@ -1,5 +1,6 @@
 import unittest
 
+import ValidateData
 from Family import Family
 from Individual import Individual
 from typing import List
@@ -9,7 +10,8 @@ from ValidateData import us01_dates_before_current_date, us02_birth_before_marri
     us05_marriage_before_death, us06_divorce_before_death, us15_fewer_than_15_siblings, us16_male_last_names, \
     us09_birth_before_death_of_parents, us10_marriage_after_14, us11_no_bigamy, us12_parents_not_too_old, \
     us18_siblings_should_not_marry, us17_no_marriages_to_descendants, us23_unique_name_and_birth, us24_unique_family_by_spouses,us19_first_cousins_should_not_marry,us20_aunts_and_uncles,  us31_isSingleAliveOver30, us32_hasMultipleBirths, \
-    us27_include_individual_ages,us28_order_siblings_by_age
+    us27_include_individual_ages,us28_order_siblings_by_age, us25_unique_first_names_in_families, us26_corresponding_entries
+
 
 class TestValidateDataMethod(unittest.TestCase):
     def setUp(self):
@@ -18,17 +20,20 @@ class TestValidateDataMethod(unittest.TestCase):
         self.individual.set_birth_date("12 DEC 1968")
         self.individual.set_death_date("18 JAN 2021")
         self.individual.set_family_id_as_spouse("Fam1")
+        ValidateData.individual_list.append(self.individual)
 
         self.individual2 = Individual("Indiv2")
         self.individual.set_name("Individual /2/")
         self.individual2.set_birth_date("1 APR 1968")
         self.individual2.set_death_date("13 AUG 2021")
         self.individual2.set_family_id_as_spouse("Fam1")
+        ValidateData.individual_list.append(self.individual2)
 
         self.individual3 = Individual("Indiv3")
         self.individual.set_name("Individual /3/")
         self.individual3.set_birth_date("13 AUG 2021")
         self.individual3.set_family_id_as_child("Fam1")
+        ValidateData.individual_list.append(self.individual3)
 
         self.family = Family("Fam1")
         self.family.set_husb("Indiv1")
@@ -36,18 +41,21 @@ class TestValidateDataMethod(unittest.TestCase):
         self.family.set_children("Indiv3")
         self.family.set_marriage_date("5 DEC 2001")
         self.family.set_divorce_date("10 JUL 2011")
+        ValidateData.family_list.append(self.family)
 
         self.family2 = Family("Fam2")
         self.family2.set_husb("Indiv4")
         self.family2.set_wife("Indiv3")
         self.family2.set_children("Indiv")
         self.family2.set_marriage_date("5 DEC 2020")
+        ValidateData.family_list.append(self.family2)
 
         self.family3 = Family("Fam3")
         self.family3.set_husb("Indiv3")
         self.family3.set_wife("Indiv7")
         self.family3.set_children("Indiv2")
         self.family3.set_marriage_date("5 DEC 2020")
+        ValidateData.family_list.append(self.family3)
 
     def tearDown(self):
         del self.family
@@ -394,6 +402,25 @@ class TestValidateDataMethod(unittest.TestCase):
         self.individual2.set_family_id_as_child("USF18F1")
         self.assertTrue(us18_siblings_should_not_marry(self.individual.family_id_as_child, self.individual2.family_id_as_child, self.family.id))
 
+    def test_us25_unique_first_names_in_families(self):
+        self.assertTrue(us25_unique_first_names_in_families(self.family.id, self.family.children))
+
+        self.family.set_children("Indiv3")
+        self.assertFalse(us25_unique_first_names_in_families(self.family.id, self.family.children))
+
+        self.assertTrue(us25_unique_first_names_in_families(None, None))
+
+    def test_us26_corresponding_entries(self):
+        self.assertTrue(us26_corresponding_entries('Indiv3', 'INDIV'))
+        self.assertTrue(us26_corresponding_entries('Fam1', 'FAMILY'))
+
+        self.assertFalse(us26_corresponding_entries('Person1', 'INDIV'))
+        self.assertFalse(us26_corresponding_entries('Family4', 'FAMILY'))
+
+        self.assertFalse(us26_corresponding_entries(None, 'FAMILY'))
+        self.assertFalse(us26_corresponding_entries('Indiv3', None))
+        self.assertFalse(us26_corresponding_entries(None, None))
+
     def test_us31_isSingleAliveOver30(self):
         ind = us31_isSingleAliveOver30()
         # ind.age = 31
@@ -417,6 +444,6 @@ class TestValidateDataMethod(unittest.TestCase):
         us27_include_individual_ages(self.birth_date,self.death_date)
     def test_us28_order_siblings_by_age(self):
         us27_include_individual_ages(self)
-    
+
 if __name__ == "__main__":
     unittest.main(exit=False)
