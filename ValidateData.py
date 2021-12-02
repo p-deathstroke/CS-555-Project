@@ -301,6 +301,29 @@ def us24_unique_family_by_spouses(families: List[Family]):
     print(same_data)
     return same_data
 
+def us27_include_individual_ages(birth_date,death_date):
+  if birth_date=="NA":
+    return "NA", "NA"
+  else: 
+    birth_month= birth_date.split('-')[1]
+    birth_day= birth_date.split('-')[2]
+    if death_date!="NA":
+        death_month=death_date.split('-')[1]
+        death_day=death_date.split('-')[2]
+        return int(death_date.split('-')[0]) - int(birth_date.split('-')[0])-((int(death_month), int(death_day))< (int(birth_month), int(birth_day))), False
+    else: 
+        birth_month= birth_date.split('-')[1]
+        birth_day= birth_date.split('-')[2]
+        today = datetime.today()
+    return today.year - int(birth_date.split('-')[0]) - ((today.month, today.day) < (int(birth_month), int(birth_day))), True
+
+
+def us28_order_siblings_by_age(family):
+    if len(family['children']) > 1:
+        siblings = family['children']
+        sorted_siblings = sorted(siblings, ((siblings)['birthday']))
+    return sorted_siblings
+
 def us31_isSingleAliveOver30():
     retValue = False
     age = -1
